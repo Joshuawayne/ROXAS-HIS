@@ -1,0 +1,15 @@
+fastapi
+uvicorn[standard]
+numpy
+jax
+jaxlib
+pydantic
+geopandas
+shapely
+folium
+earthengine-api
+torch
+torchvision
+requests
+osmnx
+overpy

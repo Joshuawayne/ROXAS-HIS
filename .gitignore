@@ -1,0 +1,60 @@
+# Large DEM and raster files
+DEM Lidar 1m/
+LandCover/
+LandUse/
+Soil/
+Existing Drainage Network SHP/
+Rivers and Creeks/
+LandUse 2021 2030/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg-info/
+dist/
+build/
+
+# Node modules
+node_modules/
+apps/frontend/node_modules/
+
+# Environment files
+.env
+.env.backup
+apps/api/.env
+apps/frontend/.env
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Shapefile locks
+*.sr.lock
+*.lock
+
+# Large data files that should be in LFS or external storage
+*.tif
+*.tiff
+*.aux.xml
+*.shp
+*.shx
+*.dbf
+*.prj
+*.cpg
+*.sbn
+*.sbx
+*.qix
+*.qmd
+*.qpj
