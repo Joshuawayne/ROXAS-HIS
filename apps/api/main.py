@@ -100,13 +100,12 @@ async def startup_event():
 
 @app.get("/", response_class=HTMLResponse)
 async def dashboard_home(request: Request):
-    return templates.TemplateResponse("dashboard.html", {"request": request})
-
-@app.get("/map", response_class=HTMLResponse)
-async def get_map_iframe():
-    global LATEST_MAP_HTML
-    return LATEST_MAP_HTML
-
+    """Serves the pure HTML dashboard."""
+    # We explicitly name 'name' and 'context' to fix the Jinja2 error
+    return templates.TemplateResponse(
+        name="dashboard.html", 
+        context={"request": request}
+    )
 # --- 4. PHYSICS ENGINE ENDPOINTS ---
 
 class SimulationRequest(BaseModel):
