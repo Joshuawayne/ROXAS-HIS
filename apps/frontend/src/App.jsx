@@ -468,7 +468,7 @@ function Dashboard({ role }) {
   useEffect(() => {
     if (crossSectionPts.length === 2) {
       const [p1, p2] = crossSectionPts;
-      fetch(`http://localhost:8000/api/cross-section?lon_a=${p1[0]}&lat_a=${p1[1]}&lon_b=${p2[0]}&lat_b=${p2[1]}&return_period=${returnPeriod}`)
+      fetch(`${API_URL}/api/cross-section?lon_a=${p1[0]}&lat_a=${p1[1]}&lon_b=${p2[0]}&lat_b=${p2[1]}&return_period=${returnPeriod}`)
         .then(res => res.json())
         .then(data => setElevationProfile(data.data))
         .catch(e => {
@@ -878,7 +878,7 @@ function Dashboard({ role }) {
       const start = Date.now();
       
       // Connect to the real Python API!
-      const res = await fetch('http://localhost:8000/api/encroachment');
+      const res = await fetch(`${API_URL}/api/encroachment`);
       const data = await res.json();
       
       const elapsed = Date.now() - start;
