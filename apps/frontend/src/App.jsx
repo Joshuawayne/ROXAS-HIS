@@ -110,7 +110,7 @@ function LoginPage() {
             ⚠️ {error}
           </div>
         )}
-        
+
         {message && (
           <div className="p-2 mb-4 bg-green-50 text-green-700 text-xs font-semibold rounded border border-green-200 text-center">
             ✅ {message}
@@ -120,26 +120,26 @@ function LoginPage() {
         <form onSubmit={isResetMode ? handleResetPassword : handleLogin} className="space-y-4">
           <div>
             <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Email / Username</label>
-            <input 
-              type="text" 
-              value={email} 
-              onChange={(e) => setEmail(e.target.value)} 
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="e.g. admin@roxas.gov.ph"
-              className="w-full p-2 border border-slate-300 rounded bg-slate-50 outline-none focus:border-blue-500 text-sm" 
+              className="w-full p-2 border border-slate-300 rounded bg-slate-50 outline-none focus:border-blue-500 text-sm"
             />
           </div>
-          
+
           {!isResetMode && (
             <div>
               <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Database Password</label>
               <div className="relative">
                 <Lock className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-                <input 
-                  type="password" 
+                <input
+                  type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••" 
-                  className="w-full pl-9 p-2 border border-slate-300 rounded bg-slate-50 outline-none focus:border-blue-500 text-sm" 
+                  placeholder="••••••••"
+                  className="w-full pl-9 p-2 border border-slate-300 rounded bg-slate-50 outline-none focus:border-blue-500 text-sm"
                 />
               </div>
             </div>
@@ -148,18 +148,18 @@ function LoginPage() {
           <button type="submit" className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded shadow transition-colors flex justify-center items-center gap-2 text-sm font-bold uppercase tracking-wider">
             {isResetMode ? 'Send Reset Link' : <><ShieldCheck className="w-4 h-4" /> Connect to Database</>}
           </button>
-          
+
           <div className="flex justify-between items-center pt-2">
             <button type="button" onClick={() => navigate('/register')} className="text-xs text-blue-600 hover:text-blue-800 font-semibold hover:underline">
               Register here
             </button>
-            <button 
-              type="button" 
+            <button
+              type="button"
               onClick={() => {
                 setIsResetMode(!isResetMode);
                 setError(null);
                 setMessage(null);
-              }} 
+              }}
               className="text-xs text-slate-500 hover:text-slate-700 font-semibold hover:underline"
             >
               {isResetMode ? 'Back to Login' : 'Forgot Password?'}
@@ -212,7 +212,7 @@ function RegisterPage() {
         <div className="flex items-center gap-3 mb-6 justify-center">
           <h1 className="font-bold text-2xl text-slate-700">Account Registration</h1>
         </div>
-        
+
         <div className="bg-slate-50 p-3 rounded mb-4 text-center border border-slate-200">
           <div className="text-[10px] text-slate-500 font-mono">
             Fill in the details to create a new account.
@@ -224,7 +224,7 @@ function RegisterPage() {
             ⚠️ {error}
           </div>
         )}
-        
+
         {success && (
           <div className="p-2 mb-4 bg-green-50 text-green-700 text-xs font-semibold rounded border border-green-200 text-center">
             ✅ Registration successful! Redirecting to login...
@@ -234,26 +234,26 @@ function RegisterPage() {
         <form onSubmit={handleRegister} className="space-y-4">
           <div>
             <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Email / Username</label>
-            <input 
-              type="email" 
-              value={email} 
-              onChange={(e) => setEmail(e.target.value)} 
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="e.g. scientist@roxas.gov.ph"
               required
-              className="w-full p-2 border border-slate-300 rounded bg-slate-50 outline-none focus:border-blue-500 text-sm" 
+              className="w-full p-2 border border-slate-300 rounded bg-slate-50 outline-none focus:border-blue-500 text-sm"
             />
           </div>
           <div>
             <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Password</label>
             <div className="relative">
               <Lock className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-              <input 
-                type="password" 
+              <input
+                type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••" 
+                placeholder="••••••••"
                 required
-                className="w-full pl-9 p-2 border border-slate-300 rounded bg-slate-50 outline-none focus:border-blue-500 text-sm" 
+                className="w-full pl-9 p-2 border border-slate-300 rounded bg-slate-50 outline-none focus:border-blue-500 text-sm"
               />
             </div>
           </div>
@@ -261,20 +261,20 @@ function RegisterPage() {
             <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Confirm Password</label>
             <div className="relative">
               <Lock className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-              <input 
-                type="password" 
+              <input
+                type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="••••••••" 
+                placeholder="••••••••"
                 required
-                className="w-full pl-9 p-2 border border-slate-300 rounded bg-slate-50 outline-none focus:border-blue-500 text-sm" 
+                className="w-full pl-9 p-2 border border-slate-300 rounded bg-slate-50 outline-none focus:border-blue-500 text-sm"
               />
             </div>
           </div>
           <button type="submit" disabled={success} className="w-full py-2 bg-green-600 hover:bg-green-700 text-white font-medium rounded shadow transition-colors flex justify-center items-center gap-2 text-sm font-bold uppercase tracking-wider disabled:opacity-50 disabled:cursor-not-allowed">
             <ShieldCheck className="w-4 h-4" /> Create Account
           </button>
-          
+
           <div className="text-center pt-2">
             <button type="button" onClick={() => navigate('/')} className="text-xs text-blue-600 hover:text-blue-800 font-semibold hover:underline">
               Already have an account? Login here
@@ -291,13 +291,13 @@ function Dashboard({ role }) {
   const navigate = useNavigate();
   const [isPlaying, setIsPlaying] = useState(false);
   const [returnPeriod, setReturnPeriod] = useState(50);
-  
+
   // Dynamic API Data
   const [accraData, setAccraData] = useState(null);
   const [isLoadingAccra, setIsLoadingAccra] = useState(false);
   const [crossSectionPts, setCrossSectionPts] = useState([]);
   const [elevationProfile, setElevationProfile] = useState(null);
-  
+
   // OpenWeatherMap state for Roxas City
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState(null);
@@ -422,10 +422,10 @@ function Dashboard({ role }) {
   const handleRoleChange = async (userId, newRole) => {
     // Optimistic UI update
     setSettingsUsers(prev => prev.map(u => u.id === userId ? { ...u, role: newRole } : u));
-    
+
     // Database update
     const { error } = await supabase.from('profiles').update({ role: newRole }).eq('id', userId);
-    
+
     if (!error) {
       await supabase.from('logs').insert([{
         action: 'User Role Modified',
@@ -515,7 +515,7 @@ function Dashboard({ role }) {
           bearing: -10,
           transitionDuration: 1200
         });
-        
+
         // Log action in Supabase
         supabase.from('logs').insert([{
           action: `Search Barangay ${term}`,
@@ -534,7 +534,7 @@ function Dashboard({ role }) {
     }
     if (!info.coordinate) return;
     const [lon, lat] = info.coordinate;
-    
+
     let newPts = [...crossSectionPts];
     if (newPts.length === 2) {
       newPts = [[lon, lat]]; // reset
@@ -737,19 +737,19 @@ function Dashboard({ role }) {
     { id: 'upland_2', category: 'upland', type: 'Detention Polder B (Buffer Site)', position: [122.760798, 11.570203], color: [16, 185, 129, 220], capacity: '45,000 m³' }, // Calibration point
     { id: 'upland_3', category: 'upland', type: 'Detention Polder C (Runoff Catchment)', position: [122.748, 11.545], color: [16, 185, 129, 220], capacity: '40,000 m³' },
     { id: 'upland_4', category: 'upland', type: 'Detention Polder D (Upland Peak Shaver)', position: [122.768, 11.535], color: [16, 185, 129, 220], capacity: '62,000 m³' },
-    
+
     // URBAN CORE (HRU 112 - San Manuel) - Subsurface Cisterns
     { id: 'urban_1', category: 'urban', type: 'Subsurface Cistern A', position: [122.752, 11.581], color: [245, 158, 11, 220], capacity: '12,500 m³' },
     { id: 'urban_2', category: 'urban', type: 'Subsurface Cistern B', position: [122.758, 11.579], color: [245, 158, 11, 220], capacity: '15,000 m³' },
     { id: 'urban_3', category: 'urban', type: 'Subsurface Cistern C', position: [122.744, 11.585], color: [245, 158, 11, 220], capacity: '8,500 m³' },
     { id: 'urban_4', category: 'urban', type: 'Subsurface Cistern D', position: [122.761, 11.583], color: [245, 158, 11, 220], capacity: '10,200 m³' },
-    
+
     // TIDAL DELTA (HRU 135 - Hydrosol) - Mangrove Estuary & Gates
     { id: 'delta_1', category: 'delta', type: 'Mangrove Estuary A', position: [122.731823, 11.599764], color: [14, 165, 233, 220], capacity: 'N/A (Tidal Surge Buffer)' },
     { id: 'delta_2', category: 'delta', type: 'Mangrove Estuary B', position: [122.724088, 11.607581], color: [14, 165, 233, 220], capacity: 'N/A (Tidal Surge Buffer)' },
     { id: 'delta_3', category: 'delta', type: 'Mangrove Estuary C', position: [122.715, 11.595], color: [14, 165, 233, 220], capacity: 'N/A (Tidal Surge Buffer)' },
     { id: 'delta_4', category: 'delta', type: 'Mangrove Estuary D', position: [122.764246, 11.606302], color: [14, 165, 233, 220], capacity: 'N/A (Tidal Surge Buffer)' },
-    
+
     // RIVER CHANNEL (Riverbed Alluvium) - Dredging Sites
     { id: 'dredging_1', category: 'dredging', type: 'Dredging Segment A', position: [122.760, 11.560], color: [139, 92, 246, 220], capacity: '+1.5 m/s flow velocity gain' },
     { id: 'dredging_2', category: 'dredging', type: 'Dredging Segment B', position: [122.759, 11.578], color: [139, 92, 246, 220], capacity: '+1.3 m/s flow velocity gain' },
@@ -758,7 +758,7 @@ function Dashboard({ role }) {
   ];
 
   const activeInterventions = INTERVENTION_LOCATIONS.filter(inv => interventionTypes[inv.category]);
-  
+
   if (activeInterventions.length > 0) {
     deckLayers.push(
       new ScatterplotLayer({
@@ -804,19 +804,32 @@ function Dashboard({ role }) {
   }
 
   // --- Dynamic Intervention Math ---
+  const FLOOD_MITIGATION_IMPACT = {
+    5: { upland: 0.45, urban: 0.35, delta: 0.20, dredging: 0.25, proposedDrainage: 0.30 },
+    25: { upland: 0.30, urban: 0.20, delta: 0.12, dredging: 0.15, proposedDrainage: 0.20 },
+    50: { upland: 0.15, urban: 0.10, delta: 0.05, dredging: 0.05, proposedDrainage: 0.10 },
+    100: { upland: 0.08, urban: 0.05, delta: 0.02, dredging: 0.02, proposedDrainage: 0.05 }
+  };
+
+  const currentImpacts = FLOOD_MITIGATION_IMPACT[returnPeriod] || FLOOD_MITIGATION_IMPACT[50];
+
   let interventionReduction = 0;
-  if (interventionTypes.upland) interventionReduction += 0.15; // 15% reduction
-  if (interventionTypes.urban) interventionReduction += 0.10; // 10% reduction
-  if (interventionTypes.delta) interventionReduction += 0.05; // 5% reduction
-  if (interventionTypes.dredging) interventionReduction += 0.05; // 5% reduction
+  if (interventionTypes.upland) interventionReduction += currentImpacts.upland;
+  if (interventionTypes.urban) interventionReduction += currentImpacts.urban;
+  if (interventionTypes.delta) interventionReduction += currentImpacts.delta;
+  if (interventionTypes.dredging) interventionReduction += currentImpacts.dredging;
+  if (interventionTypes.proposedDrainage) interventionReduction += currentImpacts.proposedDrainage;
+
+  // Cap reduction at 95%
+  interventionReduction = Math.min(0.95, interventionReduction);
 
   const popMultiplier = 1 - interventionReduction;
-  
+
   const rawPop = returnPeriod == 100 ? 45210 : (returnPeriod == 50 ? 18440 : 5110);
   const rawDamages = returnPeriod == 100 ? 2400 : (returnPeriod == 50 ? 850 : 120); // in Millions
   const rawBuildings = returnPeriod == 100 ? 8450 : 4210;
   const rawBuilt = returnPeriod == 100 ? 3630 : 1845;
-  
+
   const finalPop = Math.floor(rawPop * popMultiplier);
   const finalDamages = Math.floor(rawDamages * popMultiplier);
   const finalBuildings = accraData ? accraData.total_encroaching : Math.floor(rawBuildings * popMultiplier);
@@ -830,32 +843,32 @@ function Dashboard({ role }) {
     minElev = Math.min(...elevationProfile.map(p => p.elevation_m));
     maxElev = Math.max(...elevationProfile.map(p => p.elevation_m));
     totalDist = Math.max(...elevationProfile.map(p => p.distance_m));
-    
+
     // Max depth and population
     elevationProfile.forEach(p => {
-        if (p.water_level_m && p.water_level_m > p.elevation_m) {
-            let depth = p.water_level_m - p.elevation_m;
-            if (depth > maxWaterDepth) maxWaterDepth = depth;
-        }
-        // Rough estimate of people over this slice of land
-        totalPopIntersected += Math.floor((p.population_density || 0) * (totalDist/elevationProfile.length) / 10000); 
+      if (p.water_level_m && p.water_level_m > p.elevation_m) {
+        let depth = p.water_level_m - p.elevation_m;
+        if (depth > maxWaterDepth) maxWaterDepth = depth;
+      }
+      // Rough estimate of people over this slice of land
+      totalPopIntersected += Math.floor((p.population_density || 0) * (totalDist / elevationProfile.length) / 10000);
     });
-    
+
     // Mode of LULC
     const lulcCounts = {};
     elevationProfile.forEach(p => {
-        if (p.lulc) lulcCounts[p.lulc] = (lulcCounts[p.lulc] || 0) + 1;
+      if (p.lulc) lulcCounts[p.lulc] = (lulcCounts[p.lulc] || 0) + 1;
     });
     if (Object.keys(lulcCounts).length > 0) {
-        dominantLULC = Object.keys(lulcCounts).reduce((a, b) => lulcCounts[a] > lulcCounts[b] ? a : b, "Unknown");
+      dominantLULC = Object.keys(lulcCounts).reduce((a, b) => lulcCounts[a] > lulcCounts[b] ? a : b, "Unknown");
     }
-    
+
     if (maxWaterDepth > 2.0) riskLevel = "Very High";
     else if (maxWaterDepth > 1.0) riskLevel = "High";
     else if (maxWaterDepth > 0.1) riskLevel = "Medium";
     else riskLevel = "Low";
   }
-  
+
   // Custom Recharts Tooltip
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
@@ -879,11 +892,11 @@ function Dashboard({ role }) {
     try {
       // Minimum 3 second delay for realistic loading spinner effect
       const start = Date.now();
-      
+
       // Connect to the real Python API!
       const res = await fetch(`${API_URL}/api/encroachment`);
       const data = await res.json();
-      
+
       const elapsed = Date.now() - start;
       if (elapsed < 3000) {
         await new Promise(resolve => setTimeout(resolve, 3000 - elapsed));
@@ -904,7 +917,7 @@ function Dashboard({ role }) {
 
   return (
     <div className="w-full h-screen bg-slate-100 flex flex-col font-gee text-slate-800 overflow-hidden">
-      
+
       {/* TOP BAR */}
       <div className="h-14 bg-white border-b border-slate-300 flex items-center justify-between px-4 shadow-sm z-20 shrink-0">
         <div className="flex items-center gap-6">
@@ -913,11 +926,11 @@ function Dashboard({ role }) {
           </div>
           <div className="relative">
             <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-            <input 
-              type="text" 
-              placeholder="Search Barangay (e.g. Tiza, Baybay)..." 
+            <input
+              type="text"
+              placeholder="Search Barangay (e.g. Tiza, Baybay)..."
               onKeyDown={handleSearch}
-              className="w-64 pl-9 pr-3 py-1.5 bg-slate-100 border border-slate-300 rounded text-xs focus:outline-none focus:border-blue-500 focus:bg-white transition-colors text-slate-700 font-medium" 
+              className="w-64 pl-9 pr-3 py-1.5 bg-slate-100 border border-slate-300 rounded text-xs focus:outline-none focus:border-blue-500 focus:bg-white transition-colors text-slate-700 font-medium"
             />
           </div>
         </div>
@@ -982,7 +995,7 @@ function Dashboard({ role }) {
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Current Conditions Grid */}
                 <div className="grid grid-cols-4 gap-0 border-b border-slate-100">
                   <div className="p-2.5 text-center border-r border-slate-100">
@@ -1071,7 +1084,7 @@ function Dashboard({ role }) {
             {role} Dashboard
           </span>
           {role === 'Superadmin' && (
-            <button 
+            <button
               onClick={() => setIsSettingsOpen(true)}
               className="p-1.5 text-slate-500 hover:text-blue-600 hover:bg-slate-100 rounded-full transition-colors"
               title="Enterprise Settings"
@@ -1084,39 +1097,37 @@ function Dashboard({ role }) {
       </div>
 
       <div className="flex-1 flex overflow-hidden">
-        
+
         {/* LEFT COLUMN */}
         <div className="w-72 bg-white border-r border-slate-300 flex flex-col shrink-0 z-10 shadow-[2px_0_5px_rgba(0,0,0,0.02)]">
-          
+
           <div className="flex-1 flex flex-col min-h-0 border-b border-slate-300">
             <div className="bg-slate-100 border-b border-slate-300 p-2 flex items-center gap-2">
               <LayersIcon className="w-4 h-4 text-slate-500" />
               <span className="font-semibold text-sm text-slate-700">Layers & Physics</span>
             </div>
-             <div className="p-2 overflow-y-auto flex-1 text-sm">
-              
+            <div className="p-2 overflow-y-auto flex-1 text-sm">
+
               <div className="mb-3 bg-slate-50 border border-slate-200 p-2 rounded shadow-sm">
                 <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Basemap Style</label>
                 <div className="flex gap-2">
-                  <button 
+                  <button
                     onClick={() => {
                       setBasemap('satellite');
                       supabase.from('logs').insert([{ action: 'Switch Basemap to Satellite', role: role, details: 'Adjusted visual overlay.' }]);
-                    }} 
-                    className={`flex-1 py-1 text-[10px] font-bold rounded border uppercase tracking-wider transition-all ${
-                      basemap === 'satellite' ? 'bg-blue-600 text-white border-blue-600 shadow-sm' : 'bg-white text-slate-500 border-slate-300 hover:bg-slate-50'
-                    }`}
+                    }}
+                    className={`flex-1 py-1 text-[10px] font-bold rounded border uppercase tracking-wider transition-all ${basemap === 'satellite' ? 'bg-blue-600 text-white border-blue-600 shadow-sm' : 'bg-white text-slate-500 border-slate-300 hover:bg-slate-50'
+                      }`}
                   >
                     Satellite
                   </button>
-                  <button 
+                  <button
                     onClick={() => {
                       setBasemap('topo');
                       supabase.from('logs').insert([{ action: 'Switch Basemap to Topographic', role: role, details: 'Adjusted visual overlay.' }]);
-                    }} 
-                    className={`flex-1 py-1 text-[10px] font-bold rounded border uppercase tracking-wider transition-all ${
-                      basemap === 'topo' ? 'bg-blue-600 text-white border-blue-600 shadow-sm' : 'bg-white text-slate-500 border-slate-300 hover:bg-slate-50'
-                    }`}
+                    }}
+                    className={`flex-1 py-1 text-[10px] font-bold rounded border uppercase tracking-wider transition-all ${basemap === 'topo' ? 'bg-blue-600 text-white border-blue-600 shadow-sm' : 'bg-white text-slate-500 border-slate-300 hover:bg-slate-50'
+                      }`}
                   >
                     Topo
                   </button>
@@ -1125,8 +1136,8 @@ function Dashboard({ role }) {
 
               <div className="mb-4 bg-blue-50 border border-blue-100 p-2 rounded">
                 <label className="block text-xs font-bold text-blue-800 uppercase tracking-wider mb-1">Return Period</label>
-                <select 
-                  value={returnPeriod} 
+                <select
+                  value={returnPeriod}
                   disabled={role === 'User'}
                   onChange={(e) => {
                     const period = parseInt(e.target.value);
@@ -1136,7 +1147,7 @@ function Dashboard({ role }) {
                       role: role,
                       details: `Triggered dynamic run-off recalculation.`
                     }]);
-                  }} 
+                  }}
                   className="w-full p-1 border border-blue-200 rounded text-sm outline-none disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   <option value={5}>5 Year Event</option>
@@ -1153,14 +1164,14 @@ function Dashboard({ role }) {
                     <span className="text-slate-600 font-medium">City Boundary</span>
                   </div>
                 </label>
-                
+
                 <label className="flex items-center justify-between p-1 hover:bg-slate-50 rounded cursor-pointer group">
                   <div className="flex items-center gap-2">
                     <input type="checkbox" checked={layers.predictedFlood} onChange={() => toggleLayer('predictedFlood')} className="rounded border-slate-300 text-blue-600" />
                     <span className="text-slate-600 font-medium">Predicted Flood (JAX)</span>
                   </div>
                 </label>
-                
+
                 <label className="flex items-center justify-between p-1 hover:bg-slate-50 rounded cursor-pointer group">
                   <div className="flex items-center gap-2">
                     <input type="checkbox" checked={layers.drainageNetwork} onChange={() => toggleLayer('drainageNetwork')} className="rounded border-slate-300 text-blue-600" />
@@ -1173,31 +1184,31 @@ function Dashboard({ role }) {
                   <span className="px-1 text-xs font-bold text-slate-400 uppercase tracking-wider">NSGA-II Interventions</span>
                   <label className="flex items-center justify-between p-1 mt-1 hover:bg-slate-50 rounded cursor-pointer">
                     <div className="flex items-center gap-2 ml-2">
-                      <input type="checkbox" checked={interventionTypes.upland} onChange={() => setInterventionTypes(p => ({...p, upland: !p.upland}))} className="rounded border-slate-300 text-green-600" />
+                      <input type="checkbox" checked={interventionTypes.upland} onChange={() => setInterventionTypes(p => ({ ...p, upland: !p.upland }))} className="rounded border-slate-300 text-green-600" />
                       <span className="text-slate-600 text-xs flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-emerald-500"></div> Upland: Luisiana Clay (HRU 301)</span>
                     </div>
                   </label>
                   <label className="flex items-center justify-between p-1 hover:bg-slate-50 rounded cursor-pointer">
                     <div className="flex items-center gap-2 ml-2">
-                      <input type="checkbox" checked={interventionTypes.urban} onChange={() => setInterventionTypes(p => ({...p, urban: !p.urban}))} className="rounded border-slate-300 text-amber-500" />
+                      <input type="checkbox" checked={interventionTypes.urban} onChange={() => setInterventionTypes(p => ({ ...p, urban: !p.urban }))} className="rounded border-slate-300 text-amber-500" />
                       <span className="text-slate-600 text-xs flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-amber-500"></div> Urban Core: San Manuel (HRU 112)</span>
                     </div>
                   </label>
                   <label className="flex items-center justify-between p-1 hover:bg-slate-50 rounded cursor-pointer">
                     <div className="flex items-center gap-2 ml-2">
-                      <input type="checkbox" checked={interventionTypes.delta} onChange={() => setInterventionTypes(p => ({...p, delta: !p.delta}))} className="rounded border-slate-300 text-sky-500" />
+                      <input type="checkbox" checked={interventionTypes.delta} onChange={() => setInterventionTypes(p => ({ ...p, delta: !p.delta }))} className="rounded border-slate-300 text-sky-500" />
                       <span className="text-slate-600 text-xs flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-sky-500"></div> Tidal Delta: Hydrosol (HRU 135)</span>
                     </div>
                   </label>
                   <label className="flex items-center justify-between p-1 hover:bg-slate-50 rounded cursor-pointer">
                     <div className="flex items-center gap-2 ml-2">
-                      <input type="checkbox" checked={interventionTypes.dredging} onChange={() => setInterventionTypes(p => ({...p, dredging: !p.dredging}))} className="rounded border-slate-300 text-purple-500" />
+                      <input type="checkbox" checked={interventionTypes.dredging} onChange={() => setInterventionTypes(p => ({ ...p, dredging: !p.dredging }))} className="rounded border-slate-300 text-purple-500" />
                       <span className="text-slate-600 text-xs flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-purple-500"></div> Riverbed Alluvium (Dredging)</span>
                     </div>
                   </label>
                   <label className="flex items-center justify-between p-1 hover:bg-slate-50 rounded cursor-pointer">
                     <div className="flex items-center gap-2 ml-2">
-                      <input type="checkbox" checked={interventionTypes.proposedDrainage} onChange={() => setInterventionTypes(p => ({...p, proposedDrainage: !p.proposedDrainage}))} className="rounded border-slate-300 text-green-500" />
+                      <input type="checkbox" checked={interventionTypes.proposedDrainage} onChange={() => setInterventionTypes(p => ({ ...p, proposedDrainage: !p.proposedDrainage }))} className="rounded border-slate-300 text-green-500" />
                       <span className="text-slate-600 text-xs flex items-center gap-2"><div className="w-2.5 h-0.5 bg-green-500"></div> NSGA-II Drainage Lines</span>
                     </div>
                   </label>
@@ -1232,7 +1243,7 @@ function Dashboard({ role }) {
 
           {(role === 'Admin' || role === 'Superadmin') && (
             <div className="p-4 bg-slate-50 shrink-0 border-t border-slate-300">
-              <button 
+              <button
                 onClick={handleRunAccraModel}
                 className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-gee font-medium rounded flex items-center justify-center gap-2 shadow"
               >
@@ -1252,7 +1263,7 @@ function Dashboard({ role }) {
             layers={deckLayers}
             onClick={handleMapClick}
           >
-            <Map 
+            <Map
               style={{ width: '100%', height: '100%' }}
               mapStyle={mapStyle}
             >
@@ -1264,9 +1275,8 @@ function Dashboard({ role }) {
           {/* 3D Mode Toggle Button */}
           <button
             onClick={toggle3DMode}
-            className={`absolute top-4 right-4 bg-white/95 backdrop-blur border border-slate-200 rounded shadow-md p-3 z-10 flex items-center gap-2 transition-all hover:shadow-lg ${
-              is3DMode ? 'ring-2 ring-blue-500' : ''
-            }`}
+            className={`absolute top-4 right-4 bg-white/95 backdrop-blur border border-slate-200 rounded shadow-md p-3 z-10 flex items-center gap-2 transition-all hover:shadow-lg ${is3DMode ? 'ring-2 ring-blue-500' : ''
+              }`}
             title={is3DMode ? 'Switch to 2D Mode' : 'Switch to 3D Mode'}
           >
             <Box className={`w-5 h-5 ${is3DMode ? 'text-blue-600' : 'text-slate-600'}`} />
@@ -1295,7 +1305,7 @@ function Dashboard({ role }) {
                 <BarChart2 className="w-4 h-4" />
                 <span className="font-semibold text-sm">Analytics & Engineering</span>
               </div>
-              <button 
+              <button
                 onClick={() => {
                   setElevationProfile(null);
                   setSelectedIntervention(null);
@@ -1308,305 +1318,315 @@ function Dashboard({ role }) {
               </button>
             </div>
 
-          <div className="p-4 space-y-4">
-            
-            {/* 1. DEM Cross Section & Risk */}
-            <div className="border border-slate-200 rounded p-3 bg-slate-50 shadow-sm">
-              <div className="flex justify-between items-center mb-1">
-                <h3 className="text-sm font-bold text-slate-800">DEM Elevation Profile</h3>
+            <div className="p-4 space-y-4">
+
+              {/* 1. DEM Cross Section & Risk */}
+              <div className="border border-slate-200 rounded p-3 bg-slate-50 shadow-sm">
+                <div className="flex justify-between items-center mb-1">
+                  <h3 className="text-sm font-bold text-slate-800">DEM Elevation Profile</h3>
+                  {elevationProfile && (
+                    <span className={`text-[9px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider text-white ${riskLevel === 'Very High' ? 'bg-red-600' :
+                        riskLevel === 'High' ? 'bg-orange-500' :
+                          riskLevel === 'Medium' ? 'bg-yellow-500' : 'bg-green-500'
+                      }`}>
+                      {riskLevel} Risk
+                    </span>
+                  )}
+                </div>
+                <div className="h-32 w-full mt-2">
+                  {elevationProfile ? (
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={elevationProfile}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="distance_m" type="number" tick={{ fontSize: 10 }} label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5 }} />
+                        <YAxis tick={{ fontSize: 10 }} width={30} />
+                        <RechartsTooltip content={<CustomTooltip />} />
+                        <Area type="monotone" dataKey="elevation_m" stroke="#f97316" fill="#fed7aa" />
+                        <Area type="step" dataKey="water_level_m" stroke="#3b82f6" fill="#60a5fa" opacity={0.6} />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-xs text-slate-400 border-2 border-dashed border-slate-200 rounded text-center px-4">
+                      Waiting for Map Selection... (Click two points)
+                    </div>
+                  )}
+                </div>
                 {elevationProfile && (
-                  <span className={`text-[9px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wider text-white ${
-                    riskLevel === 'Very High' ? 'bg-red-600' : 
-                    riskLevel === 'High' ? 'bg-orange-500' : 
-                    riskLevel === 'Medium' ? 'bg-yellow-500' : 'bg-green-500'
-                  }`}>
-                    {riskLevel} Risk
-                  </span>
-                )}
-              </div>
-              <div className="h-32 w-full mt-2">
-                {elevationProfile ? (
-                  <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={elevationProfile}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="distance_m" type="number" tick={{fontSize: 10}} label={{ value: 'Distance (m)', position: 'insideBottom', offset: -5 }} />
-                      <YAxis tick={{fontSize: 10}} width={30} />
-                      <RechartsTooltip content={<CustomTooltip />} />
-                      <Area type="monotone" dataKey="elevation_m" stroke="#f97316" fill="#fed7aa" />
-                      <Area type="step" dataKey="water_level_m" stroke="#3b82f6" fill="#60a5fa" opacity={0.6} />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                ) : (
-                   <div className="w-full h-full flex items-center justify-center text-xs text-slate-400 border-2 border-dashed border-slate-200 rounded text-center px-4">
-                     Waiting for Map Selection... (Click two points)
-                   </div>
-                )}
-              </div>
-              {elevationProfile && (
-                <div className="mt-2 pt-2 border-t border-slate-200 text-[10px] text-slate-600 font-medium grid grid-cols-2 gap-2">
-                  <div className="space-y-1">
+                  <div className="mt-2 pt-2 border-t border-slate-200 text-[10px] text-slate-600 font-medium grid grid-cols-2 gap-2">
+                    <div className="space-y-1">
                       <div className="flex justify-between"><span>Total Dist:</span> <span className="font-bold">{totalDist.toFixed(0)}m</span></div>
                       <div className="flex justify-between"><span>Max Flood Depth:</span> <span className="font-bold text-blue-600">{maxWaterDepth > 0 ? maxWaterDepth.toFixed(1) + "m" : "None"}</span></div>
                       <div className="flex justify-between"><span>Dominant LULC:</span> <span className="font-bold text-emerald-600 text-right max-w-[80px] truncate" title={dominantLULC}>{dominantLULC}</span></div>
-                  </div>
-                  <div className="space-y-1 border-l pl-2 border-slate-200">
+                    </div>
+                    <div className="space-y-1 border-l pl-2 border-slate-200">
                       <div className="flex justify-between"><span>Min Elev:</span> <span className="font-bold text-orange-600">{minElev.toFixed(1)}m</span></div>
                       <div className="flex justify-between"><span>Max Elev:</span> <span className="font-bold text-orange-600">{maxElev.toFixed(1)}m</span></div>
                       <div className="flex justify-between"><span>Affected Pop:</span> <span className="font-bold text-purple-600">~{totalPopIntersected} people</span></div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* 2. NSGA-II Interventions 2D Shape */}
-            <div className="border border-green-200 rounded p-3 bg-green-50 shadow-sm">
-              <h3 className="text-sm font-bold text-green-800 mb-2 border-b border-green-200 pb-1 flex justify-between items-center">
-                Intervention Design
-                <span className="text-[9px] text-slate-500 font-normal">Click a map dot</span>
-              </h3>
-              {selectedIntervention?.category === 'upland' ? (
-                <div className="text-center">
-                  <svg viewBox="0 0 200 80" className="w-full h-24 mt-2">
-                     <path d="M 10,20 L 40,60 L 160,60 L 190,20" fill="none" stroke="#047857" strokeWidth="2" />
-                     <path d="M 40,60 L 160,60 L 180,30 L 20,30 Z" fill="#34d399" opacity="0.3" />
-                     <line x1="100" y1="20" x2="100" y2="60" stroke="#047857" strokeDasharray="2,2" />
-                     <text x="105" y="45" fontSize="8" fill="#047857">Depth: 4.5m</text>
-                     <text x="100" y="75" fontSize="8" fill="#047857" textAnchor="middle">Base Width: 150m</text>
-                  </svg>
-                  <div className="mt-2 text-[10px] text-left space-y-1 text-green-800">
-                     <div className="flex justify-between"><span>HRU Zone:</span> <span className="font-bold">Upland: Luisiana Clay (HRU 301)</span></div>
-                     <div className="flex justify-between"><span>Site Type:</span> <span className="font-bold">{selectedIntervention.type}</span></div>
-                     <div className="flex justify-between"><span>Coordinates:</span> <span className="font-bold font-mono">[{selectedIntervention.position[1].toFixed(5)}°, {selectedIntervention.position[0].toFixed(5)}°]</span></div>
-                     <div className="flex justify-between"><span>Retention Capacity:</span> <span className="font-bold font-mono text-emerald-700">{selectedIntervention.capacity}</span></div>
-                  </div>
-                </div>
-              ) : selectedIntervention?.category === 'urban' ? (
-                <div className="text-center">
-                  <svg viewBox="0 0 200 80" className="w-full h-24 mt-2">
-                     <rect x="60" y="10" width="80" height="60" fill="none" stroke="#1e293b" strokeWidth="2" rx="4" />
-                     <rect x="60" y="30" width="80" height="40" fill="#94a3b8" opacity="0.4" rx="4" />
-                     <line x1="30" y1="10" x2="170" y2="10" stroke="#475569" strokeWidth="3" />
-                     <text x="100" y="45" fontSize="8" fill="#1e293b" textAnchor="middle">Subsurface Tank</text>
-                     <text x="150" y="45" fontSize="8" fill="#1e293b">Depth: 5m</text>
-                  </svg>
-                  <div className="mt-2 text-[10px] text-left space-y-1 text-amber-800">
-                     <div className="flex justify-between"><span>HRU Zone:</span> <span className="font-bold">Urban Core: San Manuel (HRU 112)</span></div>
-                     <div className="flex justify-between"><span>Site Type:</span> <span className="font-bold">{selectedIntervention.type}</span></div>
-                     <div className="flex justify-between"><span>Coordinates:</span> <span className="font-bold font-mono">[{selectedIntervention.position[1].toFixed(5)}°, {selectedIntervention.position[0].toFixed(5)}°]</span></div>
-                     <div className="flex justify-between"><span>Retention Capacity:</span> <span className="font-bold font-mono text-amber-700">{selectedIntervention.capacity}</span></div>
-                  </div>
-                </div>
-              ) : selectedIntervention?.category === 'delta' ? (
-                <div className="text-center">
-                  <svg viewBox="0 0 200 80" className="w-full h-24 mt-2">
-                     <path d="M 20,40 Q 60,60 100,40 T 180,40" fill="none" stroke="#0ea5e9" strokeWidth="3" />
-                     <rect x="90" y="10" width="20" height="50" fill="#334155" />
-                     <line x1="95" y1="10" x2="105" y2="10" stroke="#ef4444" strokeWidth="2" />
-                     <text x="120" y="25" fontSize="8" fill="#334155">Smart Flap-Gate</text>
-                  </svg>
-                  <div className="mt-2 text-[10px] text-left space-y-1 text-sky-800">
-                     <div className="flex justify-between"><span>HRU Zone:</span> <span className="font-bold">Tidal Delta: Hydrosol (HRU 135)</span></div>
-                     <div className="flex justify-between"><span>Site Type:</span> <span className="font-bold">{selectedIntervention.type}</span></div>
-                     <div className="flex justify-between"><span>Coordinates:</span> <span className="font-bold font-mono">[{selectedIntervention.position[1].toFixed(5)}°, {selectedIntervention.position[0].toFixed(5)}°]</span></div>
-                     <div className="flex justify-between"><span>Peak Containment:</span> <span className="font-bold font-mono text-sky-700">{selectedIntervention.capacity}</span></div>
-                  </div>
-                </div>
-              ) : selectedIntervention?.category === 'dredging' ? (
-                <div className="text-center">
-                  <svg viewBox="0 0 200 80" className="w-full h-24 mt-2">
-                     <path d="M 30,30 C 60,70 140,70 170,30" fill="none" stroke="#8b5cf6" strokeWidth="3" strokeDasharray="5,5" />
-                     <path d="M 40,40 C 80,60 120,60 160,40" fill="none" stroke="#9ca3af" strokeWidth="2" />
-                     <line x1="100" y1="30" x2="100" y2="60" stroke="#8b5cf6" />
-                     <text x="105" y="45" fontSize="8" fill="#8b5cf6">Excavation: -2.5m</text>
-                  </svg>
-                  <div className="mt-2 text-[10px] text-left space-y-1 text-purple-800">
-                     <div className="flex justify-between"><span>HRU Zone:</span> <span className="font-bold">Riverbed Alluvium (Dredging)</span></div>
-                     <div className="flex justify-between"><span>Site Type:</span> <span className="font-bold">{selectedIntervention.type}</span></div>
-                     <div className="flex justify-between"><span>Coordinates:</span> <span className="font-bold font-mono">[{selectedIntervention.position[1].toFixed(5)}°, {selectedIntervention.position[0].toFixed(5)}°]</span></div>
-                     <div className="flex justify-between"><span>Flow Velocity Gain:</span> <span className="font-bold font-mono text-purple-700">{selectedIntervention.capacity || selectedIntervention.velocityGain}</span></div>
-                  </div>
-                </div>
-              ) : (
-                <div className="h-24 flex items-center justify-center text-[10px] text-green-600/60 font-medium">
-                  Click a colored intervention dot on the map.
-                </div>
-              )}
-            </div>
-
-            {/* 3. 2D Engineering Design / Cross-Section Cut (Box Culvert) */}
-            <div className="border border-blue-200 rounded p-3 bg-blue-50 shadow-sm">
-              <h3 className="text-sm font-bold text-blue-800 mb-2 border-b border-blue-200 pb-1 flex justify-between items-center">
-                Recommended Drainage Cut
-                {selectedDrainage && <span className="text-[9px] text-blue-500">Linked to Map</span>}
-              </h3>
-              <div className="text-center">
-                {(() => {
-                  // Manning Sizing Math
-                  let currentWidth = selectedDrainage ? (selectedDrainage.WIDTH || 0.9) : 1.5;
-                  let currentType = selectedDrainage ? (selectedDrainage.TYPE || 'RCP') : 'RCP';
-                  let name = selectedDrainage ? selectedDrainage.NAME : 'Default Outlet';
-                  
-                  // Optimize sizing: Proposed box culvert is 1.8x existing width, capped or base min
-                  let proposedWidth = Math.max(2.0, parseFloat(currentWidth) * 1.8);
-                  let proposedHeight = 2.0;
-                  let manningN = 0.013; // Concrete Box Culvert
-                  let hydraulicRadius = (proposedWidth * proposedHeight) / (proposedWidth + 2 * proposedHeight);
-                  let slope = 0.005; // 0.5% grade slope
-                  let dischargeQ = ( (1.0 / manningN) * (proposedWidth * proposedHeight) * Math.pow(hydraulicRadius, 2/3) * Math.sqrt(slope) );
-                  
-                  // Compute dynamic SVG properties
-                  // Base width SVG visual scaling (min 40, max 120 pixels)
-                  let visualWidth = Math.min(130, Math.max(50, proposedWidth * 30));
-                  let svgX = (200 - visualWidth) / 2;
-                  
-                  return (
-                    <>
-                      <svg viewBox="0 0 200 100" className="w-full h-24 mt-2">
-                         {/* Dynamic Box Culvert Box */}
-                         <rect x={svgX} y="20" width={visualWidth} height="60" fill="none" stroke="#1d4ed8" strokeWidth="4" />
-                         <rect x={svgX + 2} y="35" width={visualWidth - 4} height="43" fill="#60a5fa" opacity="0.4" />
-                         
-                         {/* Water level line */}
-                         <line x1={svgX + 2} y1="35" x2={svgX + visualWidth - 2} y2="35" stroke="#2563eb" strokeDasharray="4,2" />
-                         <text x="100" y="30" fontSize="7" fill="#1d4ed8" textAnchor="middle">Max Water Level</text>
-                         
-                         {/* Dimension Labels */}
-                         <line x1={svgX} y1="88" x2={svgX + visualWidth} y2="88" stroke="#1e40af" />
-                         <text x="100" y="97" fontSize="8" fill="#1e40af" textAnchor="middle">Width: {proposedWidth.toFixed(1)}m</text>
-                         
-                         <line x1={svgX - 10} y1="20" x2={svgX - 10} y2="80" stroke="#1e40af" />
-                         <text x={svgX - 25} y="55" fontSize="8" fill="#1e40af">H: {proposedHeight.toFixed(1)}m</text>
-                      </svg>
-                      
-                      <div className="mt-2 text-[10px] text-left space-y-1 text-blue-800">
-                         {selectedDrainage ? (
-                           <div className="bg-blue-100/50 p-1.5 rounded mb-2 border border-blue-200/50">
-                             <div className="font-bold text-slate-800 truncate">{name}</div>
-                             <div className="flex justify-between text-slate-600"><span>Existing Type:</span> <span>{currentType} ({currentWidth}m)</span></div>
-                             <div className="flex justify-between text-slate-600"><span>Optimal Upgrade:</span> <span className="font-bold text-blue-700">Box Culvert ({proposedWidth.toFixed(1)}m)</span></div>
-                           </div>
-                         ) : (
-                           <div className="flex justify-between"><span>Design:</span> <span className="font-bold">RC Box Culvert (Road Shoulder)</span></div>
-                         )}
-                         <div className="flex justify-between"><span>Manning's Coef (n):</span> <span className="font-bold font-mono">{manningN}</span></div>
-                         <div className="flex justify-between"><span>Conveyance Cap (Q):</span> <span className="font-bold font-mono">{dischargeQ.toFixed(1)} m³/s</span></div>
-                         <div className="flex justify-between"><span>Excavation Volume:</span> <span className="font-bold font-mono">{(proposedWidth * 300).toFixed(0)} m³ /100m</span></div>
-                      </div>
-                    </>
-                  );
-                })()}
-              </div>
-            </div>
-
-            {(role === 'Admin' || role === 'Superadmin') && layers.encroachingBuildings && (
-              <div className="border border-red-200 rounded p-4 bg-red-50 shadow-sm transition-all">
-                <h3 className="text-sm font-bold text-red-800 mb-2 border-b border-red-200 pb-2">Drainage Encroachment</h3>
-                
-                {isLoadingAccra ? (
-                  <div className="flex flex-col items-center justify-center py-6 text-red-600">
-                    <svg className="animate-spin h-6 w-6 mb-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    <span className="text-xs font-semibold animate-pulse">Calculating Intersection...</span>
-                  </div>
-                ) : (
-                  <>
-                    <div className="flex justify-between items-center border-b border-red-100 pb-1">
-                      <span className="text-xs text-red-600 font-medium">Total Buildings in ROI:</span>
-                      <span className="text-sm font-bold font-mono text-red-700">
-                        {accraData ? accraData.total_buildings_in_roi?.toLocaleString() : "..."}
-                      </span>
                     </div>
-                    <div className="flex justify-between items-center border-b border-red-100 pb-1 mt-2">
-                      <span className="text-xs text-red-600 font-medium">Buildings in Flow Paths:</span>
-                      <span className="text-sm font-bold font-mono text-red-700">
-                        {finalBuildings.toLocaleString()} <span className="text-red-500 text-xs">({accraData ? accraData.encroachment_percentage : 0}%)</span>
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-center border-b border-red-100 pb-1">
-                      <span className="text-xs text-red-600 font-medium">Population Affected:</span>
-                      <span className="text-sm font-bold font-mono text-red-700">
-                        {finalPop.toLocaleString()}
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-center border-b border-red-100 pb-1">
-                      <span className="text-xs text-red-600 font-medium">Estimated Damages:</span>
-                      <span className="text-sm font-bold font-mono text-red-700">
-                        {finalDamages >= 1000 ? `₱${(finalDamages/1000).toFixed(1)}B` : `₱${finalDamages}M`}
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-center border-b border-red-100 pb-1">
-                      <span className="text-xs text-red-600 font-medium">Built since 2016:</span>
-                      <span className="text-sm font-bold font-mono text-red-700">
-                        {finalBuilt.toLocaleString()}
-                      </span>
-                    </div>
-                    <button className="w-full mt-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-semibold rounded shadow-sm">
-                      Export Coordinates (CSV)
-                    </button>
-
-                    {/* Paginated Buildings Inventory */}
-                    {accraData?.features && accraData.features.length > 0 && (
-                      <div className="mt-4 pt-3 border-t border-red-200">
-                        <div className="text-[11px] font-bold text-red-800 mb-2 uppercase tracking-wider">Encroaching Buildings Inventory</div>
-                        <div className="overflow-hidden border border-red-200 rounded">
-                          <table className="w-full text-left border-collapse text-[10px]">
-                            <thead>
-                              <tr className="bg-red-100/80 text-red-800 border-b border-red-200">
-                                <th className="p-1.5 font-bold">ID</th>
-                                <th className="p-1.5 font-bold">Coordinates (Lat, Lon)</th>
-                                <th className="p-1.5 font-bold text-right">Confidence</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {accraData.features.slice((currentPage - 1) * 5, currentPage * 5).map((f, idx) => {
-                                const globalIdx = (currentPage - 1) * 5 + idx + 1;
-                                const coords = f.geometry?.coordinates?.[0]?.[0] || [122.75, 11.58];
-                                const confidence = f.properties?.confidence || 0.90;
-                                return (
-                                  <tr key={idx} className="border-b border-red-100 hover:bg-red-100/30 transition-colors text-red-900 font-mono">
-                                    <td className="p-1.5 font-semibold text-red-700">#{globalIdx}</td>
-                                    <td className="p-1.5">[{coords[1].toFixed(5)}°, {coords[0].toFixed(5)}°]</td>
-                                    <td className="p-1.5 text-right font-semibold">{(confidence * 100).toFixed(0)}%</td>
-                                  </tr>
-                                );
-                              })}
-                            </tbody>
-                          </table>
-                        </div>
-                        
-                        {/* Pagination Controls */}
-                        <div className="flex justify-between items-center mt-3 text-[10px]">
-                          <button 
-                            disabled={currentPage === 1}
-                            onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                            className="px-2 py-1 bg-red-100 text-red-700 rounded disabled:opacity-50"
-                          >
-                            &larr; Prev
-                          </button>
-                          <span className="font-semibold text-red-800">
-                            Page {currentPage} of {Math.ceil(accraData.features.length / 5)}
-                          </span>
-                          <button 
-                            disabled={currentPage >= Math.ceil(accraData.features.length / 5)}
-                            onClick={() => setCurrentPage(p => p + 1)}
-                            className="px-2 py-1 bg-red-100 text-red-700 rounded disabled:opacity-50"
-                          >
-                            Next &rarr;
-                          </button>
-                        </div>
-                      </div>
-                    )}
-                  </>
+                  </div>
                 )}
               </div>
-            )}
-            
+
+              {/* 2. NSGA-II Interventions 2D Shape */}
+              <div className="border border-green-200 rounded p-3 bg-green-50 shadow-sm">
+                <h3 className="text-sm font-bold text-green-800 mb-2 border-b border-green-200 pb-1 flex justify-between items-center">
+                  Intervention Design
+                  <span className="text-[9px] text-slate-500 font-normal">Click a map dot</span>
+                </h3>
+                {selectedIntervention?.category === 'upland' ? (
+                  <div className="text-center">
+                    <svg viewBox="0 0 200 80" className="w-full h-24 mt-2">
+                      <path d="M 10,20 L 40,60 L 160,60 L 190,20" fill="none" stroke="#047857" strokeWidth="2" />
+                      <path d="M 40,60 L 160,60 L 180,30 L 20,30 Z" fill="#34d399" opacity="0.3" />
+                      <line x1="100" y1="20" x2="100" y2="60" stroke="#047857" strokeDasharray="2,2" />
+                      <text x="105" y="45" fontSize="8" fill="#047857">Depth: 4.5m</text>
+                      <text x="100" y="75" fontSize="8" fill="#047857" textAnchor="middle">Base Width: 150m</text>
+                    </svg>
+                    <div className="mt-2 text-[10px] text-left space-y-1 text-green-800">
+                      <div className="flex justify-between"><span>HRU Zone:</span> <span className="font-bold">Upland: Luisiana Clay (HRU 301)</span></div>
+                      <div className="flex justify-between"><span>Site Type:</span> <span className="font-bold">{selectedIntervention.type}</span></div>
+                      <div className="flex justify-between"><span>Coordinates:</span> <span className="font-bold font-mono">[{selectedIntervention.position[1].toFixed(5)}°, {selectedIntervention.position[0].toFixed(5)}°]</span></div>
+                      <div className="flex justify-between"><span>Retention Capacity:</span> <span className="font-bold font-mono text-emerald-700">{selectedIntervention.capacity}</span></div>
+                      <div className="flex justify-between"><span>Flood Water Addressed ({returnPeriod}Y Event):</span> <span className="font-bold text-emerald-700">{(currentImpacts.upland * 100).toFixed(0)}%</span></div>
+                    </div>
+                  </div>
+                ) : selectedIntervention?.category === 'urban' ? (
+                  <div className="text-center">
+                    <svg viewBox="0 0 200 80" className="w-full h-24 mt-2">
+                      <rect x="60" y="10" width="80" height="60" fill="none" stroke="#1e293b" strokeWidth="2" rx="4" />
+                      <rect x="60" y="30" width="80" height="40" fill="#94a3b8" opacity="0.4" rx="4" />
+                      <line x1="30" y1="10" x2="170" y2="10" stroke="#475569" strokeWidth="3" />
+                      <text x="100" y="45" fontSize="8" fill="#1e293b" textAnchor="middle">Subsurface Tank</text>
+                      <text x="150" y="45" fontSize="8" fill="#1e293b">Depth: 5m</text>
+                    </svg>
+                    <div className="mt-2 text-[10px] text-left space-y-1 text-amber-800">
+                      <div className="flex justify-between"><span>HRU Zone:</span> <span className="font-bold">Urban Core: San Manuel (HRU 112)</span></div>
+                      <div className="flex justify-between"><span>Site Type:</span> <span className="font-bold">{selectedIntervention.type}</span></div>
+                      <div className="flex justify-between"><span>Coordinates:</span> <span className="font-bold font-mono">[{selectedIntervention.position[1].toFixed(5)}°, {selectedIntervention.position[0].toFixed(5)}°]</span></div>
+                      <div className="flex justify-between"><span>Retention Capacity:</span> <span className="font-bold font-mono text-amber-700">{selectedIntervention.capacity}</span></div>
+                      <div className="flex justify-between"><span>Flood Water Addressed ({returnPeriod}Y Event):</span> <span className="font-bold text-amber-700">{(currentImpacts.urban * 100).toFixed(0)}%</span></div>
+                    </div>
+                  </div>
+                ) : selectedIntervention?.category === 'delta' ? (
+                  <div className="text-center">
+                    <svg viewBox="0 0 200 80" className="w-full h-24 mt-2">
+                      <path d="M 20,40 Q 60,60 100,40 T 180,40" fill="none" stroke="#0ea5e9" strokeWidth="3" />
+                      <rect x="90" y="10" width="20" height="50" fill="#334155" />
+                      <line x1="95" y1="10" x2="105" y2="10" stroke="#ef4444" strokeWidth="2" />
+                      <text x="120" y="25" fontSize="8" fill="#334155">Smart Flap-Gate</text>
+                    </svg>
+                    <div className="mt-2 text-[10px] text-left space-y-1 text-sky-800">
+                      <div className="flex justify-between"><span>HRU Zone:</span> <span className="font-bold">Tidal Delta: Hydrosol (HRU 135)</span></div>
+                      <div className="flex justify-between"><span>Site Type:</span> <span className="font-bold">{selectedIntervention.type}</span></div>
+                      <div className="flex justify-between"><span>Coordinates:</span> <span className="font-bold font-mono">[{selectedIntervention.position[1].toFixed(5)}°, {selectedIntervention.position[0].toFixed(5)}°]</span></div>
+                      <div className="flex justify-between"><span>Peak Containment:</span> <span className="font-bold font-mono text-sky-700">{selectedIntervention.capacity}</span></div>
+                      <div className="flex justify-between"><span>Flood Water Addressed ({returnPeriod}Y Event):</span> <span className="font-bold text-sky-700">{(currentImpacts.delta * 100).toFixed(0)}%</span></div>
+                    </div>
+                  </div>
+                ) : selectedIntervention?.category === 'dredging' ? (
+                  <div className="text-center">
+                    <svg viewBox="0 0 200 80" className="w-full h-24 mt-2">
+                      <path d="M 30,30 C 60,70 140,70 170,30" fill="none" stroke="#8b5cf6" strokeWidth="3" strokeDasharray="5,5" />
+                      <path d="M 40,40 C 80,60 120,60 160,40" fill="none" stroke="#9ca3af" strokeWidth="2" />
+                      <line x1="100" y1="30" x2="100" y2="60" stroke="#8b5cf6" />
+                      <text x="105" y="45" fontSize="8" fill="#8b5cf6">Excavation: -2.5m</text>
+                    </svg>
+                    <div className="mt-2 text-[10px] text-left space-y-1 text-purple-800">
+                      <div className="flex justify-between"><span>HRU Zone:</span> <span className="font-bold">Riverbed Alluvium (Dredging)</span></div>
+                      <div className="flex justify-between"><span>Site Type:</span> <span className="font-bold">{selectedIntervention.type}</span></div>
+                      <div className="flex justify-between"><span>Coordinates:</span> <span className="font-bold font-mono">[{selectedIntervention.position[1].toFixed(5)}°, {selectedIntervention.position[0].toFixed(5)}°]</span></div>
+                      <div className="flex justify-between"><span>Flow Velocity Gain:</span> <span className="font-bold font-mono text-purple-700">{selectedIntervention.capacity || selectedIntervention.velocityGain}</span></div>
+                      <div className="flex justify-between"><span>Flood Water Addressed ({returnPeriod}Y Event):</span> <span className="font-bold text-purple-700">{(currentImpacts.dredging * 100).toFixed(0)}%</span></div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="h-24 flex items-center justify-center text-[10px] text-green-600/60 font-medium">
+                    Click a colored intervention dot on the map.
+                  </div>
+                )}
+              </div>
+
+              {/* 3. 2D Engineering Design / Cross-Section Cut (Box Culvert) */}
+              <div className="border border-blue-200 rounded p-3 bg-blue-50 shadow-sm">
+                <h3 className="text-sm font-bold text-blue-800 mb-2 border-b border-blue-200 pb-1 flex justify-between items-center">
+                  Recommended Drainage Cut
+                  {selectedDrainage && <span className="text-[9px] text-blue-500">Linked to Map</span>}
+                </h3>
+                <div className="text-center">
+                  {(() => {
+                    // Manning Sizing Math
+                    let currentWidth = selectedDrainage ? (selectedDrainage.WIDTH || 0.9) : 1.5;
+                    let currentType = selectedDrainage ? (selectedDrainage.TYPE || 'RCP') : 'RCP';
+                    let name = selectedDrainage ? selectedDrainage.NAME : 'Default Outlet';
+
+                    // Optimize sizing: Proposed box culvert is 1.8x existing width, capped or base min
+                    let proposedWidth = Math.max(2.0, parseFloat(currentWidth) * 1.8);
+                    let proposedHeight = 2.0;
+                    let manningN = 0.013; // Concrete Box Culvert
+                    let hydraulicRadius = (proposedWidth * proposedHeight) / (proposedWidth + 2 * proposedHeight);
+                    let slope = 0.005; // 0.5% grade slope
+                    let dischargeQ = ((1.0 / manningN) * (proposedWidth * proposedHeight) * Math.pow(hydraulicRadius, 2 / 3) * Math.sqrt(slope));
+
+                    // Compute dynamic SVG properties
+                    // Base width SVG visual scaling (min 40, max 120 pixels)
+                    let visualWidth = Math.min(130, Math.max(50, proposedWidth * 30));
+                    let svgX = (200 - visualWidth) / 2;
+
+                    return (
+                      <>
+                        <svg viewBox="0 0 200 100" className="w-full h-24 mt-2">
+                          {/* Dynamic Box Culvert Box */}
+                          <rect x={svgX} y="20" width={visualWidth} height="60" fill="none" stroke="#1d4ed8" strokeWidth="4" />
+                          <rect x={svgX + 2} y="35" width={visualWidth - 4} height="43" fill="#60a5fa" opacity="0.4" />
+
+                          {/* Water level line */}
+                          <line x1={svgX + 2} y1="35" x2={svgX + visualWidth - 2} y2="35" stroke="#2563eb" strokeDasharray="4,2" />
+                          <text x="100" y="30" fontSize="7" fill="#1d4ed8" textAnchor="middle">Max Water Level</text>
+
+                          {/* Dimension Labels */}
+                          <line x1={svgX} y1="88" x2={svgX + visualWidth} y2="88" stroke="#1e40af" />
+                          <text x="100" y="97" fontSize="8" fill="#1e40af" textAnchor="middle">Width: {proposedWidth.toFixed(1)}m</text>
+
+                          <line x1={svgX - 10} y1="20" x2={svgX - 10} y2="80" stroke="#1e40af" />
+                          <text x={svgX - 25} y="55" fontSize="8" fill="#1e40af">H: {proposedHeight.toFixed(1)}m</text>
+                        </svg>
+
+                        <div className="mt-2 text-[10px] text-left space-y-1 text-blue-800">
+                          {selectedDrainage ? (
+                            <div className="bg-blue-100/50 p-1.5 rounded mb-2 border border-blue-200/50">
+                              <div className="font-bold text-slate-800 truncate">{name}</div>
+                              <div className="flex justify-between text-slate-600"><span>Existing Type:</span> <span>{currentType} ({currentWidth}m)</span></div>
+                              <div className="flex justify-between text-slate-600"><span>Optimal Upgrade:</span> <span className="font-bold text-blue-700">Box Culvert ({proposedWidth.toFixed(1)}m)</span></div>
+                            </div>
+                          ) : (
+                            <div className="flex justify-between"><span>Design:</span> <span className="font-bold">RC Box Culvert (Road Shoulder)</span></div>
+                          )}
+                          <div className="flex justify-between"><span>Manning's Coef (n):</span> <span className="font-bold font-mono">{manningN}</span></div>
+                          <div className="flex justify-between"><span>Conveyance Cap (Q):</span> <span className="font-bold font-mono">{dischargeQ.toFixed(1)} m³/s</span></div>
+                          <div className="flex justify-between"><span>Excavation Volume:</span> <span className="font-bold font-mono">{(proposedWidth * 300).toFixed(0)} m³ /100m</span></div>
+                          <div className="flex justify-between"><span>Flood Water Addressed ({returnPeriod}Y Event):</span> <span className="font-bold text-blue-700">{interventionTypes.proposedDrainage ? `${(currentImpacts.proposedDrainage * 100).toFixed(0)}%` : "0% (Not Activated)"}</span></div>
+                        </div>
+                      </>
+                    );
+                  })()}
+                </div>
+              </div>
+
+              {(role === 'Admin' || role === 'Superadmin') && layers.encroachingBuildings && (
+                <div className="border border-red-200 rounded p-4 bg-red-50 shadow-sm transition-all">
+                  <h3 className="text-sm font-bold text-red-800 mb-2 border-b border-red-200 pb-2">Drainage Encroachment</h3>
+
+                  {isLoadingAccra ? (
+                    <div className="flex flex-col items-center justify-center py-6 text-red-600">
+                      <svg className="animate-spin h-6 w-6 mb-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      <span className="text-xs font-semibold animate-pulse">Calculating Intersection...</span>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="flex justify-between items-center border-b border-red-100 pb-1">
+                        <span className="text-xs text-red-600 font-medium">Total Buildings in ROI:</span>
+                        <span className="text-sm font-bold font-mono text-red-700">
+                          {accraData ? accraData.total_buildings_in_roi?.toLocaleString() : "..."}
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center border-b border-red-100 pb-1 mt-2">
+                        <span className="text-xs text-red-600 font-medium">Buildings in Flow Paths:</span>
+                        <span className="text-sm font-bold font-mono text-red-700">
+                          {finalBuildings.toLocaleString()} <span className="text-red-500 text-xs">({accraData ? accraData.encroachment_percentage : 0}%)</span>
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center border-b border-red-100 pb-1">
+                        <span className="text-xs text-red-600 font-medium">Population Affected:</span>
+                        <span className="text-sm font-bold font-mono text-red-700">
+                          {finalPop.toLocaleString()}
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center border-b border-red-100 pb-1">
+                        <span className="text-xs text-red-600 font-medium">Estimated Damages:</span>
+                        <span className="text-sm font-bold font-mono text-red-700">
+                          {finalDamages >= 1000 ? `₱${(finalDamages / 1000).toFixed(1)}B` : `₱${finalDamages}M`}
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center border-b border-red-100 pb-1">
+                        <span className="text-xs text-red-600 font-medium">Flood Mitigation (Total):</span>
+                        <span className="text-sm font-bold font-mono text-emerald-600">
+                          {(interventionReduction * 100).toFixed(1)}%
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center border-b border-red-100 pb-1">
+                        <span className="text-xs text-red-600 font-medium">Built since 2016:</span>
+                        <span className="text-sm font-bold font-mono text-red-700">
+                          {finalBuilt.toLocaleString()}
+                        </span>
+                      </div>
+                      <button className="w-full mt-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-semibold rounded shadow-sm">
+                        Export Coordinates (CSV)
+                      </button>
+
+                      {/* Paginated Buildings Inventory */}
+                      {accraData?.features && accraData.features.length > 0 && (
+                        <div className="mt-4 pt-3 border-t border-red-200">
+                          <div className="text-[11px] font-bold text-red-800 mb-2 uppercase tracking-wider">Encroaching Buildings Inventory</div>
+                          <div className="overflow-hidden border border-red-200 rounded">
+                            <table className="w-full text-left border-collapse text-[10px]">
+                              <thead>
+                                <tr className="bg-red-100/80 text-red-800 border-b border-red-200">
+                                  <th className="p-1.5 font-bold">ID</th>
+                                  <th className="p-1.5 font-bold">Coordinates (Lat, Lon)</th>
+                                  <th className="p-1.5 font-bold text-right">Confidence</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {accraData.features.slice((currentPage - 1) * 5, currentPage * 5).map((f, idx) => {
+                                  const globalIdx = (currentPage - 1) * 5 + idx + 1;
+                                  const coords = f.geometry?.coordinates?.[0]?.[0] || [122.75, 11.58];
+                                  const confidence = f.properties?.confidence || 0.90;
+                                  return (
+                                    <tr key={idx} className="border-b border-red-100 hover:bg-red-100/30 transition-colors text-red-900 font-mono">
+                                      <td className="p-1.5 font-semibold text-red-700">#{globalIdx}</td>
+                                      <td className="p-1.5">[{coords[1].toFixed(5)}°, {coords[0].toFixed(5)}°]</td>
+                                      <td className="p-1.5 text-right font-semibold">{(confidence * 100).toFixed(0)}%</td>
+                                    </tr>
+                                  );
+                                })}
+                              </tbody>
+                            </table>
+                          </div>
+
+                          {/* Pagination Controls */}
+                          <div className="flex justify-between items-center mt-3 text-[10px]">
+                            <button
+                              disabled={currentPage === 1}
+                              onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                              className="px-2 py-1 bg-red-100 text-red-700 rounded disabled:opacity-50"
+                            >
+                              &larr; Prev
+                            </button>
+                            <span className="font-semibold text-red-800">
+                              Page {currentPage} of {Math.ceil(accraData.features.length / 5)}
+                            </span>
+                            <button
+                              disabled={currentPage >= Math.ceil(accraData.features.length / 5)}
+                              onClick={() => setCurrentPage(p => p + 1)}
+                              className="px-2 py-1 bg-red-100 text-red-700 rounded disabled:opacity-50"
+                            >
+                              Next &rarr;
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+              )}
 
 
+
+            </div>
           </div>
-        </div>
         )}
 
       </div>
@@ -1623,54 +1643,49 @@ function Dashboard({ role }) {
                   <span className="text-[9px] text-slate-400 font-mono">ROXAS CITY MUNICIPAL HYDROLOGY PARAMETERS</span>
                 </div>
               </div>
-              <button 
+              <button
                 onClick={() => setIsSettingsOpen(false)}
                 className="text-slate-400 hover:text-white transition-colors text-xl font-semibold outline-none"
               >
                 &times;
               </button>
             </div>
-            
+
             {/* Modal Tabs */}
             <div className="flex bg-slate-950 border-b border-slate-800 text-[10px] px-5 shrink-0 overflow-x-auto">
-              <button 
+              <button
                 onClick={() => setActiveSettingsTab('hydrology')}
-                className={`py-3 px-4 font-bold border-b-2 uppercase tracking-wider transition-all outline-none whitespace-nowrap ${
-                  activeSettingsTab === 'hydrology' ? 'border-blue-500 text-blue-400' : 'border-transparent text-slate-400 hover:text-white'
-                }`}
+                className={`py-3 px-4 font-bold border-b-2 uppercase tracking-wider transition-all outline-none whitespace-nowrap ${activeSettingsTab === 'hydrology' ? 'border-blue-500 text-blue-400' : 'border-transparent text-slate-400 hover:text-white'
+                  }`}
               >
                 💧 Hydrology & Soils
               </button>
-              <button 
+              <button
                 onClick={() => setActiveSettingsTab('optimization')}
-                className={`py-3 px-4 font-bold border-b-2 uppercase tracking-wider transition-all outline-none whitespace-nowrap ${
-                  activeSettingsTab === 'optimization' ? 'border-blue-500 text-blue-400' : 'border-transparent text-slate-400 hover:text-white'
-                }`}
+                className={`py-3 px-4 font-bold border-b-2 uppercase tracking-wider transition-all outline-none whitespace-nowrap ${activeSettingsTab === 'optimization' ? 'border-blue-500 text-blue-400' : 'border-transparent text-slate-400 hover:text-white'
+                  }`}
               >
                 ⚙️ NSGA-II Optimizer
               </button>
-              <button 
+              <button
                 onClick={() => setActiveSettingsTab('database')}
-                className={`py-3 px-4 font-bold border-b-2 uppercase tracking-wider transition-all outline-none whitespace-nowrap ${
-                  activeSettingsTab === 'database' ? 'border-blue-500 text-blue-400' : 'border-transparent text-slate-400 hover:text-white'
-                }`}
+                className={`py-3 px-4 font-bold border-b-2 uppercase tracking-wider transition-all outline-none whitespace-nowrap ${activeSettingsTab === 'database' ? 'border-blue-500 text-blue-400' : 'border-transparent text-slate-400 hover:text-white'
+                  }`}
               >
                 🖥️ Service Status
               </button>
-              <button 
+              <button
                 onClick={() => setActiveSettingsTab('logs')}
-                className={`py-3 px-4 font-bold border-b-2 uppercase tracking-wider transition-all outline-none whitespace-nowrap ${
-                  activeSettingsTab === 'logs' ? 'border-blue-500 text-blue-400' : 'border-transparent text-slate-400 hover:text-white'
-                }`}
+                className={`py-3 px-4 font-bold border-b-2 uppercase tracking-wider transition-all outline-none whitespace-nowrap ${activeSettingsTab === 'logs' ? 'border-blue-500 text-blue-400' : 'border-transparent text-slate-400 hover:text-white'
+                  }`}
               >
                 📋 Audit Trails
               </button>
               {role === 'Superadmin' && (
-                <button 
+                <button
                   onClick={() => setActiveSettingsTab('users')}
-                  className={`py-3 px-4 font-bold border-b-2 uppercase tracking-wider transition-all outline-none whitespace-nowrap ${
-                    activeSettingsTab === 'users' ? 'border-blue-500 text-blue-400' : 'border-transparent text-slate-400 hover:text-white'
-                  }`}
+                  className={`py-3 px-4 font-bold border-b-2 uppercase tracking-wider transition-all outline-none whitespace-nowrap ${activeSettingsTab === 'users' ? 'border-blue-500 text-blue-400' : 'border-transparent text-slate-400 hover:text-white'
+                    }`}
                 >
                   👥 User Access
                 </button>
@@ -1679,7 +1694,7 @@ function Dashboard({ role }) {
 
             {/* Content Body */}
             <div className="flex-1 overflow-y-auto p-6 bg-slate-50 min-h-0">
-              
+
               {/* TAB 1: HYDROLOGY & SOILS */}
               {activeSettingsTab === 'hydrology' && (
                 <div className="space-y-4 text-xs text-slate-600 animate-fade-in">
@@ -1695,13 +1710,13 @@ function Dashboard({ role }) {
                     {/* Manning's Coefficients */}
                     <div className="bg-white p-4 rounded-lg border border-slate-200 space-y-3">
                       <h4 className="font-bold text-slate-800 uppercase tracking-wider border-b pb-1 text-[10px]">Manning's Coefficients (n)</h4>
-                      
+
                       <div>
                         <div className="flex justify-between font-semibold text-slate-700 mb-1">
                           <span>Upland Clay (HRU 301):</span>
                           <span className="font-mono text-blue-600">{manningUpland.toFixed(3)}</span>
                         </div>
-                        <input 
+                        <input
                           type="range" min="0.030" max="0.080" step="0.001"
                           value={manningUpland} onChange={(e) => setManningUpland(parseFloat(e.target.value))}
                           className="w-full accent-blue-600"
@@ -1713,7 +1728,7 @@ function Dashboard({ role }) {
                           <span>Urban Core (HRU 112):</span>
                           <span className="font-mono text-blue-600">{manningUrban.toFixed(3)}</span>
                         </div>
-                        <input 
+                        <input
                           type="range" min="0.010" max="0.025" step="0.001"
                           value={manningUrban} onChange={(e) => setManningUrban(parseFloat(e.target.value))}
                           className="w-full accent-blue-600"
@@ -1725,7 +1740,7 @@ function Dashboard({ role }) {
                           <span>Tidal Delta (HRU 135):</span>
                           <span className="font-mono text-blue-600">{manningDelta.toFixed(3)}</span>
                         </div>
-                        <input 
+                        <input
                           type="range" min="0.025" max="0.050" step="0.001"
                           value={manningDelta} onChange={(e) => setManningDelta(parseFloat(e.target.value))}
                           className="w-full accent-blue-600"
@@ -1736,13 +1751,13 @@ function Dashboard({ role }) {
                     {/* Soil Infiltration Rates */}
                     <div className="bg-white p-4 rounded-lg border border-slate-200 space-y-3">
                       <h4 className="font-bold text-slate-800 uppercase tracking-wider border-b pb-1 text-[10px]">Soil Infiltration (mm/hr)</h4>
-                      
+
                       <div>
                         <div className="flex justify-between font-semibold text-slate-700 mb-1">
                           <span>Luisiana Clay (Upland):</span>
                           <span className="font-mono text-blue-600">{infilUpland.toFixed(1)} mm/h</span>
                         </div>
-                        <input 
+                        <input
                           type="range" min="0.5" max="5.0" step="0.1"
                           value={infilUpland} onChange={(e) => setInfilUpland(parseFloat(e.target.value))}
                           className="w-full accent-blue-600"
@@ -1754,7 +1769,7 @@ function Dashboard({ role }) {
                           <span>San Manuel Soil (Urban):</span>
                           <span className="font-mono text-blue-600">{infilUrban.toFixed(1)} mm/h</span>
                         </div>
-                        <input 
+                        <input
                           type="range" min="5.0" max="25.0" step="0.5"
                           value={infilUrban} onChange={(e) => setInfilUrban(parseFloat(e.target.value))}
                           className="w-full accent-blue-600"
@@ -1766,7 +1781,7 @@ function Dashboard({ role }) {
                           <span>Hydrosol Soil (Delta):</span>
                           <span className="font-mono text-blue-600">{infilDelta.toFixed(2)} mm/h</span>
                         </div>
-                        <input 
+                        <input
                           type="range" min="0.05" max="1.00" step="0.01"
                           value={infilDelta} onChange={(e) => setInfilDelta(parseFloat(e.target.value))}
                           className="w-full accent-blue-600"
@@ -1789,13 +1804,13 @@ function Dashboard({ role }) {
                     {/* Genetic Algorithm constraints */}
                     <div className="bg-white p-4 rounded-lg border border-slate-200 space-y-4">
                       <h4 className="font-bold text-slate-800 uppercase tracking-wider border-b pb-1 text-[10px]">Algorithm Constants</h4>
-                      
+
                       <div>
                         <div className="flex justify-between font-semibold text-slate-700 mb-1">
                           <span>Population Size:</span>
                           <span className="font-mono text-purple-600 font-bold">{popSize}</span>
                         </div>
-                        <input 
+                        <input
                           type="range" min="20" max="300" step="10"
                           value={popSize} onChange={(e) => setPopSize(parseInt(e.target.value))}
                           className="w-full accent-purple-600"
@@ -1807,7 +1822,7 @@ function Dashboard({ role }) {
                           <span>Maximum Generations:</span>
                           <span className="font-mono text-purple-600 font-bold">{maxGen}</span>
                         </div>
-                        <input 
+                        <input
                           type="range" min="50" max="500" step="10"
                           value={maxGen} onChange={(e) => setMaxGen(parseInt(e.target.value))}
                           className="w-full accent-purple-600"
@@ -1819,14 +1834,14 @@ function Dashboard({ role }) {
                     <div className="bg-white p-4 rounded-lg border border-slate-200 space-y-4 flex flex-col justify-between">
                       <div>
                         <h4 className="font-bold text-slate-800 uppercase tracking-wider border-b pb-1 text-[10px]">Objective Weightings</h4>
-                        
+
                         <div className="space-y-3 mt-3">
                           <div>
                             <div className="flex justify-between font-semibold text-slate-700 mb-1">
                               <span>Minimize Cost:</span>
                               <span className="font-mono text-purple-600 font-bold">{weightCost}%</span>
                             </div>
-                            <input 
+                            <input
                               type="range" min="10" max="90" step="5"
                               value={weightCost} onChange={(e) => {
                                 const val = parseInt(e.target.value);
@@ -1842,7 +1857,7 @@ function Dashboard({ role }) {
                               <span>Maximize Flood Mitigation:</span>
                               <span className="font-mono text-purple-600 font-bold">{weightMitigation}%</span>
                             </div>
-                            <input 
+                            <input
                               type="range" min="10" max="90" step="5"
                               value={weightMitigation} onChange={(e) => {
                                 const val = parseInt(e.target.value);
@@ -1864,7 +1879,7 @@ function Dashboard({ role }) {
                 <div className="space-y-4 text-xs text-slate-600 animate-fade-in">
                   <div className="bg-white p-5 rounded-lg border border-slate-200 space-y-4">
                     <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider border-b pb-1">System Health & APIs</h4>
-                    
+
                     <div className="space-y-3">
                       <div className="flex items-center justify-between p-2.5 bg-slate-50 border border-slate-200 rounded">
                         <span className="font-semibold text-slate-700">Enterprise Database Server</span>
@@ -1900,14 +1915,12 @@ function Dashboard({ role }) {
 
                       <div className="flex items-center justify-between p-2.5 bg-slate-50 border border-slate-200 rounded">
                         <span className="font-semibold text-slate-700">OpenWeatherMap API</span>
-                        <span className={`flex items-center gap-1.5 font-bold text-[9px] uppercase px-2 py-0.5 rounded border ${
-                          weather 
-                            ? 'text-green-700 bg-green-50 border-green-200' 
+                        <span className={`flex items-center gap-1.5 font-bold text-[9px] uppercase px-2 py-0.5 rounded border ${weather
+                            ? 'text-green-700 bg-green-50 border-green-200'
                             : 'text-amber-700 bg-amber-50 border-amber-200'
-                        }`}>
-                          <span className={`w-1.5 h-1.5 rounded-full inline-block animate-pulse ${
-                            weather ? 'bg-green-500' : 'bg-amber-500'
-                          }`}></span>
+                          }`}>
+                          <span className={`w-1.5 h-1.5 rounded-full inline-block animate-pulse ${weather ? 'bg-green-500' : 'bg-amber-500'
+                            }`}></span>
                           {weather ? 'Live (Roxas City)' : 'Connecting...'}
                         </span>
                       </div>
@@ -1948,7 +1961,7 @@ function Dashboard({ role }) {
                   </div>
                   {/* Logs Pagination Controls */}
                   <div className="flex justify-between items-center mt-3 text-[10px] shrink-0">
-                    <button 
+                    <button
                       disabled={logsPage === 1}
                       onClick={() => setLogsPage(p => Math.max(1, p - 1))}
                       className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-white rounded font-bold disabled:opacity-40 disabled:cursor-not-allowed transition-all"
@@ -1958,7 +1971,7 @@ function Dashboard({ role }) {
                     <span className="text-slate-600 font-bold">
                       Page {logsPage} of {Math.max(1, Math.ceil(settingsLogs.length / 7))}
                     </span>
-                    <button 
+                    <button
                       disabled={logsPage >= Math.ceil(settingsLogs.length / 7)}
                       onClick={() => setLogsPage(p => p + 1)}
                       className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-white rounded font-bold disabled:opacity-40 disabled:cursor-not-allowed transition-all"
@@ -1987,14 +2000,13 @@ function Dashboard({ role }) {
                             <tr key={idx} className="border-b border-slate-100 hover:bg-slate-50 transition-colors text-slate-600 font-mono">
                               <td className="p-2.5 font-semibold text-slate-800 truncate max-w-[200px]" title={user.email}>{user.email}</td>
                               <td className="p-2.5">
-                                <select 
-                                  value={user.role} 
+                                <select
+                                  value={user.role}
                                   onChange={(e) => handleRoleChange(user.id, e.target.value)}
-                                  className={`px-1.5 py-1 rounded text-[9px] font-bold uppercase outline-none cursor-pointer border ${
-                                    user.role === 'superadmin' ? 'bg-red-50 text-red-700 border-red-200' : 
-                                    user.role === 'admin' ? 'bg-blue-50 text-blue-700 border-blue-200' : 
-                                    'bg-slate-50 text-slate-700 border-slate-200'
-                                  }`}
+                                  className={`px-1.5 py-1 rounded text-[9px] font-bold uppercase outline-none cursor-pointer border ${user.role === 'superadmin' ? 'bg-red-50 text-red-700 border-red-200' :
+                                      user.role === 'admin' ? 'bg-blue-50 text-blue-700 border-blue-200' :
+                                        'bg-slate-50 text-slate-700 border-slate-200'
+                                    }`}
                                 >
                                   <option value="user">USER</option>
                                   <option value="admin">ADMIN</option>
@@ -2015,7 +2027,7 @@ function Dashboard({ role }) {
                   </div>
                   {/* Users Pagination Controls */}
                   <div className="flex justify-between items-center mt-3 text-[10px] shrink-0">
-                    <button 
+                    <button
                       disabled={usersPage === 1}
                       onClick={() => setUsersPage(p => Math.max(1, p - 1))}
                       className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-white rounded font-bold disabled:opacity-40 disabled:cursor-not-allowed transition-all"
@@ -2025,7 +2037,7 @@ function Dashboard({ role }) {
                     <span className="text-slate-600 font-bold">
                       Page {usersPage} of {Math.max(1, Math.ceil(settingsUsers.length / 7))}
                     </span>
-                    <button 
+                    <button
                       disabled={usersPage >= Math.ceil(settingsUsers.length / 7)}
                       onClick={() => setUsersPage(p => p + 1)}
                       className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-white rounded font-bold disabled:opacity-40 disabled:cursor-not-allowed transition-all"
@@ -2040,13 +2052,13 @@ function Dashboard({ role }) {
 
             {/* Footer */}
             <div className="bg-slate-100 px-5 py-3.5 border-t border-slate-200 flex justify-end gap-2 shrink-0">
-              <button 
+              <button
                 onClick={() => setIsSettingsOpen(false)}
                 className="px-4 py-2 text-xs font-bold text-slate-500 hover:text-slate-700 border border-slate-300 bg-white rounded shadow-sm hover:bg-slate-50 transition-all"
               >
                 Cancel
               </button>
-              <button 
+              <button
                 onClick={async () => {
                   setIsSettingsOpen(false);
                   await supabase.from('logs').insert([{
