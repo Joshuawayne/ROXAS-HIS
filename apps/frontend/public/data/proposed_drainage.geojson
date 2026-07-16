@@ -1,151 +1,23 @@
 {
   "type": "FeatureCollection",
   "name": "proposed_drainage",
-  "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
   "features": [
     {
       "type": "Feature",
       "properties": {
-        "fid": 2001,
-        "NAME": "Datiles St West Trunk Line (Existing - Upgraded)",
-        "BARANGAY": "TIZA",
-        "TYPE": "Box Culvert (Proposed)",
-        "WIDTH": 2.0,
-        "HEIGHT": 2.0,
-        "LENGTH": 710.0,
-        "Manning_n": 0.013,
-        "Discharge_Capacity_Q": 16.5,
-        "Status": "Existing Line Upgraded - NSGA-II Optimized"
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [ 122.759132, 11.572129 ],
-          [ 122.759203, 11.572671 ],
-          [ 122.759312, 11.573842 ],
-          [ 122.759381, 11.574720 ],
-          [ 122.759463, 11.575860 ],
-          [ 122.759669, 11.577466 ],
-          [ 122.759843, 11.578356 ],
-          [ 122.759860, 11.578500 ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "fid": 2002,
-        "NAME": "Datiles St East Trunk Line (Existing - Upgraded)",
-        "BARANGAY": "TIZA",
-        "TYPE": "Box Culvert (Proposed)",
-        "WIDTH": 2.0,
-        "HEIGHT": 2.0,
-        "LENGTH": 715.0,
-        "Manning_n": 0.013,
-        "Discharge_Capacity_Q": 16.5,
-        "Status": "Existing Line Upgraded - NSGA-II Optimized"
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [ 122.759209, 11.572071 ],
-          [ 122.759313, 11.572832 ],
-          [ 122.759405, 11.573900 ],
-          [ 122.759505, 11.575328 ],
-          [ 122.759674, 11.576758 ],
-          [ 122.759930, 11.578346 ],
-          [ 122.759950, 11.578500 ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "fid": 2003,
-        "NAME": "Hemingway St Trunk Line (Existing - Upgraded)",
-        "BARANGAY": "TIZA",
-        "TYPE": "Box Culvert (Proposed)",
-        "WIDTH": 2.0,
-        "HEIGHT": 2.0,
-        "LENGTH": 310.0,
-        "Manning_n": 0.013,
-        "Discharge_Capacity_Q": 16.5,
-        "Status": "Existing Line Upgraded - NSGA-II Optimized"
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [ 122.760958, 11.570141 ],
-          [ 122.760695, 11.570261 ],
-          [ 122.760205, 11.570906 ],
-          [ 122.759792, 11.571514 ],
-          [ 122.759474, 11.571876 ],
-          [ 122.759209, 11.572071 ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "fid": 2004,
-        "NAME": "Stadium West Bypass Line (Additional - Proposed)",
+        "fid": 3001,
+        "NAME": "San Roque Ext Bypass Line",
         "BARANGAY": "TIZA / VIII",
         "TYPE": "Box Culvert (Proposed)",
-        "WIDTH": 2.5,
-        "HEIGHT": 2.0,
-        "LENGTH": 580.0,
-        "Manning_n": 0.013,
-        "Discharge_Capacity_Q": 23.5,
-        "Status": "New Proposed Trunk - NSGA-II Optimized"
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [ 122.757344, 11.576357 ],
-          [ 122.756279, 11.577387 ],
-          [ 122.756380, 11.578050 ],
-          [ 122.756434, 11.578680 ],
-          [ 122.756515, 11.579795 ],
-          [ 122.756430, 11.579862 ],
-          [ 122.756500, 11.580864 ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "fid": 2005,
-        "NAME": "Banago-Tiza Loop Bypass (Additional - Proposed)",
-        "BARANGAY": "TIZA / BANAGO",
-        "TYPE": "Box Culvert (Proposed)",
-        "WIDTH": 2.5,
-        "HEIGHT": 2.0,
-        "LENGTH": 320.0,
-        "Manning_n": 0.013,
-        "Discharge_Capacity_Q": 23.5,
-        "Status": "New Proposed Trunk - NSGA-II Optimized"
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [ 122.761224, 11.578048 ],
-          [ 122.760570, 11.577355 ],
-          [ 122.759728, 11.577137 ],
-          [ 122.759750, 11.578000 ],
-          [ 122.759850, 11.578500 ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "fid": 2006,
-        "NAME": "Upland Border Runoff Interceptor (Additional - Proposed)",
-        "BARANGAY": "TIZA",
-        "TYPE": "Box Culvert (Proposed)",
         "WIDTH": 2.0,
         "HEIGHT": 2.0,
-        "LENGTH": 410.0,
+        "LENGTH": 423.9,
         "Manning_n": 0.013,
         "Discharge_Capacity_Q": 16.5,
         "Status": "New Proposed Trunk - NSGA-II Optimized"
@@ -153,10 +25,418 @@
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [ 122.758202, 11.566781 ],
-          [ 122.758960, 11.568016 ],
-          [ 122.759631, 11.568713 ],
-          [ 122.760301, 11.570037 ]
+          [
+            122.756246,
+            11.577365
+          ],
+          [
+            122.756505,
+            11.581097
+          ],
+          [
+            122.756444,
+            11.581137
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 3002,
+        "NAME": "Stadium Runoff Interceptor",
+        "BARANGAY": "TIZA",
+        "TYPE": "Box Culvert (Proposed)",
+        "WIDTH": 2.0,
+        "HEIGHT": 2.0,
+        "LENGTH": 397.0,
+        "Manning_n": 0.013,
+        "Discharge_Capacity_Q": 16.5,
+        "Status": "New Proposed Trunk - NSGA-II Optimized"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            122.756362,
+            11.577277
+          ],
+          [
+            122.756322,
+            11.576535
+          ],
+          [
+            122.757323,
+            11.576351
+          ],
+          [
+            122.757173,
+            11.574596
+          ],
+          [
+            122.757173,
+            11.574622
+          ],
+          [
+            122.757187,
+            11.574662
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 3003,
+        "NAME": "Datiles St Main Trunk Line",
+        "BARANGAY": "TIZA",
+        "TYPE": "Box Culvert (Proposed)",
+        "WIDTH": 2.5,
+        "HEIGHT": 2.0,
+        "LENGTH": 698.0,
+        "Manning_n": 0.013,
+        "Discharge_Capacity_Q": 23.5,
+        "Status": "New Proposed Trunk - NSGA-II Optimized"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            122.759243,
+            11.572098
+          ],
+          [
+            122.759559,
+            11.57594
+          ],
+          [
+            122.759712,
+            11.577097
+          ],
+          [
+            122.759947,
+            11.57832
+          ],
+          [
+            122.759935,
+            11.57832
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 3004,
+        "NAME": "Banago-Tiza Loop Bypass",
+        "BARANGAY": "TIZA / BANAGO",
+        "TYPE": "Box Culvert (Proposed)",
+        "WIDTH": 2.0,
+        "HEIGHT": 2.0,
+        "LENGTH": 245.2,
+        "Manning_n": 0.013,
+        "Discharge_Capacity_Q": 16.5,
+        "Status": "New Proposed Trunk - NSGA-II Optimized"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            122.759724,
+            11.577151
+          ],
+          [
+            122.760375,
+            11.577125
+          ],
+          [
+            122.761227,
+            11.578043
+          ],
+          [
+            122.761191,
+            11.578354
+          ],
+          [
+            122.761178,
+            11.578354
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 3005,
+        "NAME": "Banago Road Extension Trunk",
+        "BARANGAY": "BANAGO",
+        "TYPE": "Box Culvert (Proposed)",
+        "WIDTH": 2.0,
+        "HEIGHT": 2.0,
+        "LENGTH": 1542.5,
+        "Manning_n": 0.013,
+        "Discharge_Capacity_Q": 16.5,
+        "Status": "New Proposed Trunk - NSGA-II Optimized"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            122.760538,
+            11.57955
+          ],
+          [
+            122.761205,
+            11.579728
+          ],
+          [
+            122.762119,
+            11.579975
+          ],
+          [
+            122.762998,
+            11.58021
+          ],
+          [
+            122.763387,
+            11.580462
+          ],
+          [
+            122.763444,
+            11.580502
+          ],
+          [
+            122.763495,
+            11.580548
+          ],
+          [
+            122.763681,
+            11.580687
+          ],
+          [
+            122.764231,
+            11.580947
+          ],
+          [
+            122.764277,
+            11.581013
+          ],
+          [
+            122.7643,
+            11.581098
+          ],
+          [
+            122.7643,
+            11.581248
+          ],
+          [
+            122.764301,
+            11.581328
+          ],
+          [
+            122.764305,
+            11.5814
+          ],
+          [
+            122.764303,
+            11.581535
+          ],
+          [
+            122.764296,
+            11.581638
+          ],
+          [
+            122.764289,
+            11.581723
+          ],
+          [
+            122.764279,
+            11.581904
+          ],
+          [
+            122.764249,
+            11.582314
+          ],
+          [
+            122.764246,
+            11.58272
+          ],
+          [
+            122.764244,
+            11.582783
+          ],
+          [
+            122.764238,
+            11.582842
+          ],
+          [
+            122.764235,
+            11.582947
+          ],
+          [
+            122.764228,
+            11.583152
+          ],
+          [
+            122.764222,
+            11.58322
+          ],
+          [
+            122.764219,
+            11.583282
+          ],
+          [
+            122.764213,
+            11.583407
+          ],
+          [
+            122.764208,
+            11.583658
+          ],
+          [
+            122.764064,
+            11.583658
+          ],
+          [
+            122.76392,
+            11.583656
+          ],
+          [
+            122.7636,
+            11.583645
+          ],
+          [
+            122.763327,
+            11.583634
+          ],
+          [
+            122.763129,
+            11.583625
+          ],
+          [
+            122.76303,
+            11.583622
+          ],
+          [
+            122.762951,
+            11.583624
+          ],
+          [
+            122.762951,
+            11.583685
+          ],
+          [
+            122.762942,
+            11.583762
+          ],
+          [
+            122.762937,
+            11.583843
+          ],
+          [
+            122.762936,
+            11.583897
+          ],
+          [
+            122.762921,
+            11.584221
+          ],
+          [
+            122.762822,
+            11.58564
+          ],
+          [
+            122.762624,
+            11.586554
+          ],
+          [
+            122.762605,
+            11.586805
+          ],
+          [
+            122.762571,
+            11.586933
+          ],
+          [
+            122.762528,
+            11.587209
+          ],
+          [
+            122.762458,
+            11.587896
+          ],
+          [
+            122.762418,
+            11.589413
+          ],
+          [
+            122.762413,
+            11.589476
+          ],
+          [
+            122.762415,
+            11.589577
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 3006,
+        "NAME": "Banago-Panay Connector",
+        "BARANGAY": "BANAGO",
+        "TYPE": "Box Culvert (Proposed)",
+        "WIDTH": 2.0,
+        "HEIGHT": 2.0,
+        "LENGTH": 135.8,
+        "Manning_n": 0.013,
+        "Discharge_Capacity_Q": 16.5,
+        "Status": "New Proposed Trunk - NSGA-II Optimized"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            122.760529,
+            11.579552
+          ],
+          [
+            122.76036,
+            11.5795
+          ],
+          [
+            122.760272,
+            11.579475
+          ],
+          [
+            122.760191,
+            11.579437
+          ],
+          [
+            122.760132,
+            11.579388
+          ],
+          [
+            122.760037,
+            11.579243
+          ],
+          [
+            122.759978,
+            11.579041
+          ],
+          [
+            122.759951,
+            11.578933
+          ],
+          [
+            122.759925,
+            11.578822
+          ],
+          [
+            122.759894,
+            11.578638
+          ]
         ]
       }
     }
