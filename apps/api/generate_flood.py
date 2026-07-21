@@ -11,18 +11,23 @@ def generate():
     # Reproject to metric (UTM Zone 51N for Philippines) for accurate meter buffering
     gdf_metric = gdf.to_crs(epsg=32651)
     
-    print("Buffering 50-year flood (150m)...")
-    # Buffer rivers by 150 meters, then dissolve into a single continuous polygon
-    flood_50 = gdf_metric.buffer(150).unary_union
-    flood_50_gdf = gpd.GeoDataFrame(geometry=[flood_50], crs=gdf_metric.crs).to_crs(epsg=4326)
-    flood_50_gdf.to_file(os.path.join(base_dir, "flood_50yr.geojson"), driver="GeoJSON")
+    periods = [
+        (5, 50),     # 5-Year Event: 50m buffer (Minor riverbank overflow / nuisance flooding)
+        (25, 100),   # 25-Year Event: 100m buffer (Moderate inundation)
+        (50, 180),   # 50-Year Event: 180m buffer (Major severe storm inundation)
+        (100, 350)   # 100-Year Event: 350m buffer (Extreme catastrophic disaster inundation)
+    ]
     
-    print("Buffering 100-year flood (350m)...")
-    flood_100 = gdf_metric.buffer(350).unary_union
-    flood_100_gdf = gpd.GeoDataFrame(geometry=[flood_100], crs=gdf_metric.crs).to_crs(epsg=4326)
-    flood_100_gdf.to_file(os.path.join(base_dir, "flood_100yr.geojson"), driver="GeoJSON")
+    for yr, buffer_m in periods:
+        print(f"Buffering {yr}-year flood ({buffer_m}m)...")
+        flood = gdf_metric.buffer(buffer_m).unary_union
+        flood_gdf = gpd.GeoDataFrame(geometry=[flood], crs=gdf_metric.crs).to_crs(epsg=4326)
+        out_file = os.path.join(base_dir, f"flood_{yr}yr.geojson")
+        flood_gdf.to_file(out_file, driver="GeoJSON")
+        print(f"  Saved {out_file}")
     
-    print("Done.")
+    print("All return period flood datasets successfully generated.")
 
 if __name__ == "__main__":
     generate()
+

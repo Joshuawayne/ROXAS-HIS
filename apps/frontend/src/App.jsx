@@ -688,27 +688,67 @@ function Dashboard({ role }) {
   }
 
   if (layers.predictedFlood) {
-    if (returnPeriod >= 100) {
+    if (returnPeriod === 5) {
       deckLayers.push(
         new GeoJsonLayer({
-          id: 'predicted-flood-100yr',
+          id: 'predicted-flood-5yr',
+          data: '/data/flood_5yr.geojson',
+          filled: true,
+          stroked: true,
+          getFillColor: [56, 189, 248, 140], // Light Cyan / Sky Blue (Minor 5-year riverine flood)
+          getLineColor: [14, 165, 233, 200],
+          getLineWidth: 2,
+          lineWidthUnits: 'pixels'
+        })
+      );
+    } else if (returnPeriod === 25) {
+      deckLayers.push(
+        new GeoJsonLayer({
+          id: 'predicted-flood-25yr',
+          data: '/data/flood_25yr.geojson',
+          filled: true,
+          stroked: true,
+          getFillColor: [14, 165, 233, 160], // Deep Sky Blue (Moderate 25-year flood inundation)
+          getLineColor: [2, 132, 199, 220],
+          getLineWidth: 2,
+          lineWidthUnits: 'pixels'
+        })
+      );
+    } else if (returnPeriod === 50) {
+      deckLayers.push(
+        new GeoJsonLayer({
+          id: 'predicted-flood-50yr',
+          data: '/data/flood_50yr.geojson',
+          filled: true,
+          stroked: true,
+          getFillColor: [124, 58, 237, 175], // Intense Violet / Purple (Severe 50-year storm flood)
+          getLineColor: [109, 40, 217, 230],
+          getLineWidth: 2,
+          lineWidthUnits: 'pixels'
+        })
+      );
+    } else if (returnPeriod >= 100) {
+      // 100-Year Event displays catastrophic hazard layer with inner 50-year severe core (toned down for visual balance)
+      deckLayers.push(
+        new GeoJsonLayer({
+          id: 'predicted-flood-100yr-outer',
           data: '/data/flood_100yr.geojson',
           filled: true,
+          stroked: true,
+          getFillColor: [225, 75, 95, 80], // Muted, elegant translucent rose red outer zone
+          getLineColor: [190, 45, 70, 140],
+          getLineWidth: 1.5,
+          lineWidthUnits: 'pixels'
+        }),
+        new GeoJsonLayer({
+          id: 'predicted-flood-100yr-core',
+          data: '/data/flood_50yr.geojson',
+          filled: true,
           stroked: false,
-          getFillColor: [220, 38, 38, 110], // Wide red/purple for 100 year
+          getFillColor: [170, 35, 65, 110], // Softened deep rose red core
         })
       );
     }
-    // Always render 50-year base if predicted flood is on
-    deckLayers.push(
-      new GeoJsonLayer({
-        id: 'predicted-flood-50yr',
-        data: '/data/flood_50yr.geojson',
-        filled: true,
-        stroked: false,
-        getFillColor: [128, 0, 128, 160], // Darker purple for the core 50-year zone
-      })
-    );
   }
 
   if (layers.encroachingBuildings) {
@@ -825,10 +865,10 @@ function Dashboard({ role }) {
 
   const popMultiplier = 1 - interventionReduction;
 
-  const rawPop = returnPeriod == 100 ? 45210 : (returnPeriod == 50 ? 18440 : 5110);
-  const rawDamages = returnPeriod == 100 ? 2400 : (returnPeriod == 50 ? 850 : 120); // in Millions
-  const rawBuildings = returnPeriod == 100 ? 8450 : 4210;
-  const rawBuilt = returnPeriod == 100 ? 3630 : 1845;
+  const rawPop = returnPeriod >= 100 ? 45210 : (returnPeriod === 50 ? 18440 : (returnPeriod === 25 ? 8920 : 2450));
+  const rawDamages = returnPeriod >= 100 ? 2400 : (returnPeriod === 50 ? 850 : (returnPeriod === 25 ? 340 : 45)); // in Millions
+  const rawBuildings = returnPeriod >= 100 ? 8450 : (returnPeriod === 50 ? 4210 : (returnPeriod === 25 ? 2850 : 1120));
+  const rawBuilt = returnPeriod >= 100 ? 3630 : (returnPeriod === 50 ? 1845 : (returnPeriod === 25 ? 1150 : 480));
 
   const finalPop = Math.floor(rawPop * popMultiplier);
   const finalDamages = Math.floor(rawDamages * popMultiplier);
@@ -1285,13 +1325,49 @@ function Dashboard({ role }) {
             </span>
           </button>
 
-          <div className="absolute bottom-6 left-6 bg-white/95 backdrop-blur border border-slate-200 rounded shadow-md p-3 z-10 w-64 pointer-events-none">
-            <h4 className="text-xs font-bold text-slate-800 mb-2">Predicted Flood Hazard (m)</h4>
-            <div className="space-y-3 text-xs text-slate-600">
-              <div>
-                <div className="flex justify-between mb-1 font-bold"><span>Depth</span><span>&gt; {returnPeriod > 50 ? '4.5m' : '2.5m'}</span></div>
-                <div className="h-2 w-full rounded bg-gradient-to-r from-[#000080] via-[#ffff00] to-[#800080]"></div>
-                <div className="flex justify-between mt-0.5 text-[10px]"><span>0.1m</span></div>
+          <div className="absolute bottom-6 left-6 bg-white/95 backdrop-blur border border-slate-200 rounded-lg shadow-lg p-3 z-10 w-72 pointer-events-none">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-2 mb-2">
+              <h4 className="text-xs font-bold text-slate-800">Event Inundation Legend</h4>
+              <span className={`text-[10px] font-bold px-2 py-0.5 rounded text-white ${
+                returnPeriod === 5 ? 'bg-sky-500' :
+                returnPeriod === 25 ? 'bg-blue-600' :
+                returnPeriod === 50 ? 'bg-purple-600' : 'bg-rose-600 animate-pulse'
+              }`}>
+                {returnPeriod}Y Event
+              </span>
+            </div>
+            
+            <div className="space-y-2 text-xs">
+              <div className="flex items-center justify-between">
+                <span className="text-slate-500 text-[11px]">Severity Level:</span>
+                <span className="font-bold text-slate-700 text-[11px]">
+                  {returnPeriod === 5 && "Minor / Riverbank Overflow"}
+                  {returnPeriod === 25 && "Moderate Inundation"}
+                  {returnPeriod === 50 && "Severe Major Storm"}
+                  {returnPeriod >= 100 && "Catastrophic Disaster"}
+                </span>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <span className="text-slate-500 text-[11px]">Buffer Extent:</span>
+                <span className="font-semibold text-slate-700 font-mono text-[11px]">
+                  {returnPeriod === 5 ? "50m" : returnPeriod === 25 ? "100m" : returnPeriod === 50 ? "180m" : "350m"} from stream
+                </span>
+              </div>
+
+              <div className="pt-1">
+                <div className="flex justify-between text-[10px] font-semibold text-slate-500 mb-1">
+                  <span>Simulated Depth:</span>
+                  <span className="font-mono text-slate-700">
+                    {returnPeriod === 5 ? "0.2m - 1.8m" : returnPeriod === 25 ? "0.5m - 3.5m" : returnPeriod === 50 ? "1.0m - 5.0m" : "> 6.5m"}
+                  </span>
+                </div>
+                <div className={`h-2.5 w-full rounded-full ${
+                  returnPeriod === 5 ? 'bg-gradient-to-r from-sky-200 to-sky-500' :
+                  returnPeriod === 25 ? 'bg-gradient-to-r from-sky-400 to-blue-600' :
+                  returnPeriod === 50 ? 'bg-gradient-to-r from-indigo-400 to-purple-700' :
+                  'bg-gradient-to-r from-purple-500 via-rose-400 to-rose-600'
+                }`}></div>
               </div>
             </div>
           </div>

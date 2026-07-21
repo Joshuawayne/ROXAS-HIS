@@ -81,6 +81,7 @@ optimizer = NSGAIIOptimizer()
 LATEST_MAP_HTML = ""
 DRAINAGE_GDF = None
 DEM_META_CACHE = None
+ROAD_NETWORK_GDF = None
 
 def generate_default_map():
     global LATEST_MAP_HTML
@@ -318,10 +319,15 @@ async def get_cross_section(lon_a: float, lat_a: float, lon_b: float, lat_b: flo
             intersecting = DRAINAGE_GDF[DRAINAGE_GDF.intersects(Point(lon, lat).buffer(0.0002))]
             drain_int = not intersecting.empty
                 
-        # Flood logic
+        # Flood logic - Dynamic water level elevation per return period
         water = None
-        max_f = 6.0 if return_period >= 50 else 3.0
-        if elev < max_f and ("Built-up" in lulc or "Suburban" in lulc): water = max_f
+        if return_period >= 100: max_f = 6.5
+        elif return_period >= 50: max_f = 5.0
+        elif return_period >= 25: max_f = 3.5
+        else: max_f = 1.8
+        
+        if elev < max_f and ("Built-up" in lulc or "Suburban" in lulc or "Mangrove" in lulc):
+            water = max_f
             
         profile.append({"distance_m": round(distances[i], 1), "elevation_m": round(elev, 2), "water_level_m": round(water, 2) if water else None, "lulc": lulc, "population_density": pop, "drainage_intersect": drain_int})
 
