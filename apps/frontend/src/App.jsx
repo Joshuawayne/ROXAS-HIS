@@ -2362,46 +2362,95 @@ function Dashboard({ role }) {
                   </div>
                 </div>
 
-                {/* Map Graphics Placeholder & Scale / Compass Overlay */}
-                <div className="h-72 bg-slate-900 rounded-lg relative overflow-hidden flex items-center justify-center border border-slate-300 shadow-inner">
-                  <div className="absolute inset-0 bg-cover bg-center opacity-60" style={{ backgroundImage: 'url(https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/13/3688/6835)' }}></div>
-                  
+                {/* Live Dynamic Embedded Map View & Scale / Compass Overlay */}
+                <div className="h-80 bg-slate-900 rounded-lg relative overflow-hidden border border-slate-300 shadow-inner">
+                  <DeckGL
+                    viewState={viewState}
+                    controller={false}
+                    layers={deckLayers}
+                    style={{ width: '100%', height: '100%', position: 'absolute' }}
+                  >
+                    <Map
+                      style={{ width: '100%', height: '100%' }}
+                      mapStyle={mapStyle}
+                    />
+                  </DeckGL>
+
                   {/* North Arrow */}
-                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur p-2 rounded-full shadow border border-slate-300 flex flex-col items-center">
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur p-2 rounded-full shadow border border-slate-300 flex flex-col items-center z-20 pointer-events-none">
                     <Compass className="w-6 h-6 text-slate-800" />
                     <span className="text-[9px] font-black text-slate-900 leading-none">N</span>
                   </div>
 
                   {/* Dynamic Graphic Scale Bar */}
-                  <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur px-3 py-1.5 rounded shadow border border-slate-300 text-xs font-mono font-bold text-slate-800">
+                  <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur px-3 py-1.5 rounded shadow border border-slate-300 text-xs font-mono font-bold text-slate-800 z-20 pointer-events-none">
                     <div className="flex items-center gap-2">
                       <div className="w-16 h-2 bg-slate-800 border border-white"></div>
                       <span>500 m</span>
                     </div>
                   </div>
 
-                  <div className="relative z-10 text-center text-white bg-slate-900/80 px-4 py-2 rounded-lg backdrop-blur border border-slate-700">
-                    <div className="text-xs font-bold">Roxas City Central Basin & Panay River Delta</div>
-                    <div className="text-[10px] text-emerald-400 font-mono font-bold mt-1">High-Resolution Spatial Hazard Layer Active</div>
+                  {/* Active Dynamic Layer Readout Overlay */}
+                  <div className="absolute bottom-4 right-4 bg-slate-900/90 text-white px-3 py-1.5 rounded-lg border border-slate-700 text-[10px] z-20 pointer-events-none font-mono">
+                    <span className="text-emerald-400 font-bold">Active View: </span>
+                    <span>Lat {viewState.latitude.toFixed(4)}°, Lon {viewState.longitude.toFixed(4)}° | Zoom {viewState.zoom.toFixed(1)}</span>
                   </div>
                 </div>
 
-                {/* Cartographic Legend & Barangay Table */}
+                {/* Active Chosen Parameters Summary Panel */}
+                <div className="bg-slate-50 p-3 rounded-lg border border-slate-200 grid grid-cols-3 gap-3 text-xs">
+                  <div>
+                    <div className="text-[10px] font-bold uppercase text-slate-500 tracking-wider">Hydrological Event</div>
+                    <div className="font-bold text-slate-800 mt-0.5">{returnPeriod}-Year Recurrence Storm</div>
+                    <div className="text-[11px] text-sky-700 font-semibold">{tidalSurge > 0 ? `+${tidalSurge.toFixed(1)}m Tidal Surge / Sea Level Rise` : 'Baseline Mean Sea Level'}</div>
+                  </div>
+                  <div>
+                    <div className="text-[10px] font-bold uppercase text-slate-500 tracking-wider">Applied Strategy</div>
+                    <div className="font-bold text-emerald-800 mt-0.5">{appliedStrategy ? appliedStrategy.name : 'Default Baseline Package'}</div>
+                    <div className="text-[11px] text-emerald-700 font-semibold">{appliedStrategy ? `${appliedStrategy.mitigation} Reduction (${appliedStrategy.cost})` : 'Manual Layer Selection'}</div>
+                  </div>
+                  <div>
+                    <div className="text-[10px] font-bold uppercase text-slate-500 tracking-wider">Active Impact Metrics</div>
+                    <div className="font-bold text-rose-800 mt-0.5">{finalPop.toLocaleString()} Affected People</div>
+                    <div className="text-[11px] text-rose-700 font-semibold">{finalDamages >= 1000 ? `₱${(finalDamages / 1000).toFixed(1)}B` : `₱${finalDamages}M`} Est. Damages</div>
+                  </div>
+                </div>
+
+                {/* Cartographic Legend & Barangay Sign-off */}
                 <div className="grid grid-cols-2 gap-4 border-t border-slate-300 pt-3 text-xs">
                   <div>
-                    <h4 className="font-bold text-slate-800 uppercase tracking-wider text-[10px] mb-1">Spatial Legend & Parameters</h4>
+                    <h4 className="font-bold text-slate-800 uppercase tracking-wider text-[10px] mb-1">Cartographic Legend & Active Layers</h4>
                     <ul className="space-y-1 text-[11px] text-slate-600">
-                      <li className="flex items-center gap-2"><div className="w-3 h-3 rounded bg-sky-500"></div> <span>5-Year Event Footprint (50m Buffer)</span></li>
-                      <li className="flex items-center gap-2"><div className="w-3 h-3 rounded bg-blue-600"></div> <span>25-Year Event Footprint (100m Buffer)</span></li>
-                      <li className="flex items-center gap-2"><div className="w-3 h-3 rounded bg-purple-600"></div> <span>50-Year Event Footprint (180m Buffer)</span></li>
-                      <li className="flex items-center gap-2"><div className="w-3 h-3 rounded bg-rose-600"></div> <span>100-Year Event Footprint (350m Buffer)</span></li>
+                      <li className="flex items-center gap-2">
+                        <div className={`w-3 h-3 rounded ${returnPeriod === 5 ? 'bg-sky-500' : returnPeriod === 25 ? 'bg-blue-600' : returnPeriod === 50 ? 'bg-purple-600' : 'bg-rose-600'}`}></div>
+                        <span>Simulated Inundation ({returnPeriod}Y Storm Footprint)</span>
+                      </li>
+                      {layers.encroachingBuildings && (
+                        <li className="flex items-center gap-2">
+                          <div className="w-3 h-3 rounded bg-red-600"></div>
+                          <span>Encroached Structural Parcels ({finalBuildings.toLocaleString()} Buildings)</span>
+                        </li>
+                      )}
+                      {layers.drainageNetwork && (
+                        <li className="flex items-center gap-2">
+                          <div className="w-3 h-3 rounded bg-blue-500"></div>
+                          <span>Panay River & Primary Drainage Channels</span>
+                        </li>
+                      )}
+                      {interventionTypes.proposedDrainage && (
+                        <li className="flex items-center gap-2">
+                          <div className="w-3 h-3 rounded bg-emerald-500"></div>
+                          <span>NSGA-II Proposed Infrastructure Assets</span>
+                        </li>
+                      )}
                     </ul>
                   </div>
 
                   <div>
-                    <h4 className="font-bold text-slate-800 uppercase tracking-wider text-[10px] mb-1">Certification & Sign-Off</h4>
-                    <div className="border border-slate-200 p-2 rounded bg-slate-50 text-[10px] text-slate-500">
-                      Certified for Emergency Action Planning by City Geographic Information Office.
+                    <h4 className="font-bold text-slate-800 uppercase tracking-wider text-[10px] mb-1">Official Certification & Sign-Off</h4>
+                    <div className="border border-slate-200 p-2.5 rounded bg-slate-50 text-[10px] text-slate-600 space-y-1">
+                      <div><strong className="text-slate-800">Authority:</strong> City Disaster Risk Reduction & Management Office (CDRRMO)</div>
+                      <div><strong className="text-slate-800">Status:</strong> Certified GIS Twin Spatial Export for Emergency Action & Mitigation</div>
                     </div>
                   </div>
                 </div>
@@ -2409,7 +2458,7 @@ function Dashboard({ role }) {
             </div>
 
             <div className="bg-slate-50 p-4 border-t border-slate-200 flex justify-between items-center">
-              <span className="text-xs text-slate-500 font-mono">Format: High-Res Vector Spatial PDF</span>
+              <span className="text-xs text-slate-500 font-mono">Format: High-Res Dynamic Vector Spatial PDF</span>
               <div className="flex gap-2">
                 <button onClick={() => setShowMapAtlas(false)} className="px-4 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded text-xs font-bold">Cancel</button>
                 <button
