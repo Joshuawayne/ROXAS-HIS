@@ -46,3 +46,26 @@ html, body, #root {
 .animate-flow {
   animation: dashFlow 1s linear infinite;
 }
+
+/* Print Media Styles for CDRRMO Spatial Map Atlas Export */
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  .printable-atlas, .printable-atlas * {
+    visibility: visible !important;
+  }
+  .printable-atlas {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+}

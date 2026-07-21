@@ -1369,11 +1369,14 @@ function Dashboard({ role }) {
             onViewStateChange={({ viewState }) => setViewState(viewState)}
             controller={true}
             layers={deckLayers}
+            glOptions={{ preserveDrawingBuffer: true }}
+            useDevicePixels={true}
             onClick={handleMapClick}
           >
             <Map
               style={{ width: '100%', height: '100%' }}
               mapStyle={mapStyle}
+              glOptions={{ preserveDrawingBuffer: true }}
             >
               <ScaleControl position="bottom-right" />
               <NavigationControl position="bottom-right" />
@@ -2337,7 +2340,7 @@ function Dashboard({ role }) {
       {showMapAtlas && (
         <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-fade-in">
           <div className="bg-white rounded-xl shadow-2xl w-full max-w-4xl border border-slate-200 overflow-hidden flex flex-col max-h-[92vh]">
-            <div className="bg-emerald-900 text-white p-4 flex items-center justify-between">
+            <div className="bg-emerald-900 text-white p-4 flex items-center justify-between no-print">
               <div className="flex items-center gap-2">
                 <Printer className="w-5 h-5 text-emerald-300" />
                 <h3 className="font-bold text-sm">Official CDRRMO Spatial Map Print Layout (Roxas City)</h3>
@@ -2347,7 +2350,7 @@ function Dashboard({ role }) {
 
             <div className="p-6 overflow-y-auto space-y-4 bg-slate-100 flex-1">
               {/* Printable Canvas Box */}
-              <div className="bg-white p-6 rounded border-2 border-slate-400 shadow-md font-gee text-slate-800 space-y-4 relative">
+              <div className="printable-atlas bg-white p-6 rounded border-2 border-slate-400 shadow-md font-gee text-slate-800 space-y-4 relative">
                 {/* Cartographic Header */}
                 <div className="border-b-2 border-slate-800 pb-3 flex justify-between items-center">
                   <div>
@@ -2368,11 +2371,14 @@ function Dashboard({ role }) {
                     viewState={viewState}
                     controller={false}
                     layers={deckLayers}
+                    glOptions={{ preserveDrawingBuffer: true }}
+                    useDevicePixels={true}
                     style={{ width: '100%', height: '100%', position: 'absolute' }}
                   >
                     <Map
                       style={{ width: '100%', height: '100%' }}
                       mapStyle={mapStyle}
+                      glOptions={{ preserveDrawingBuffer: true }}
                     />
                   </DeckGL>
 
@@ -2457,7 +2463,7 @@ function Dashboard({ role }) {
               </div>
             </div>
 
-            <div className="bg-slate-50 p-4 border-t border-slate-200 flex justify-between items-center">
+            <div className="bg-slate-50 p-4 border-t border-slate-200 flex justify-between items-center no-print">
               <span className="text-xs text-slate-500 font-mono">Format: High-Res Dynamic Vector Spatial PDF</span>
               <div className="flex gap-2">
                 <button onClick={() => setShowMapAtlas(false)} className="px-4 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded text-xs font-bold">Cancel</button>
