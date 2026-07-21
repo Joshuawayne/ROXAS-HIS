@@ -1469,49 +1469,81 @@ function Dashboard({ role }) {
             <div className="p-4 space-y-4">
 
               {/* Building Parcel Inspector Card */}
-              {selectedBuilding && (
-                <div className="border border-red-200 rounded p-3 bg-red-50/40 shadow-sm animate-fade-in">
-                  <div className="flex items-center justify-between border-b border-red-200 pb-2 mb-2">
-                    <div className="flex items-center gap-1.5">
-                      <Building className="w-4 h-4 text-red-600" />
-                      <h3 className="text-xs font-bold text-slate-800">Building Hazard Inspector</h3>
-                    </div>
-                    <span className="text-[9px] font-mono bg-red-100 text-red-700 px-1.5 py-0.5 rounded font-bold">
-                      Parcel Level
-                    </span>
-                  </div>
+              {selectedBuilding && (() => {
+                const bProps = selectedBuilding.properties || {};
+                const structCategory = bProps.category || bProps.type || (selectedBuilding.id % 2 === 0 ? 'Commercial / Industrial' : 'Residential');
+                const groundElev = typeof bProps.ground_elev === 'number' ? bProps.ground_elev : (bProps.elevation || 2.4);
+                const baseWaterLevelAMSL = (returnPeriod === 5 ? 1.8 : returnPeriod === 25 ? 3.5 : returnPeriod === 50 ? 5.0 : 6.5) + tidalSurge;
+                const localFloodDepth = Math.max(0, baseWaterLevelAMSL - groundElev);
+                const ffeOffset = structCategory.includes('Commercial') || structCategory.includes('Industrial') ? 0.10 : 0.30;
+                const inundationAboveFFE = Math.max(0, localFloodDepth - ffeOffset);
 
-                  <div className="space-y-2 text-xs">
-                    <div className="flex justify-between">
-                      <span className="text-slate-500">Structural Category:</span>
-                      <span className="font-bold text-slate-800">Residential / Commercial</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-500">Terrain Ground Elev:</span>
-                      <span className="font-mono font-bold text-slate-800">2.4 m AMSL</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-500">Peak Water Level ({returnPeriod}Y + Surge):</span>
-                      <span className="font-mono font-bold text-red-700">
-                        {((returnPeriod === 5 ? 1.8 : returnPeriod === 25 ? 3.5 : returnPeriod === 50 ? 5.0 : 6.5) + tidalSurge).toFixed(2)} m
+                let statusBg = "bg-emerald-600";
+                let cardBorder = "border-emerald-300 bg-emerald-50/50";
+                let statusText = "🟢 SAFE — BUILDING GROUND ABOVE WATER LEVEL";
+
+                if (localFloodDepth > 0 && inundationAboveFFE === 0) {
+                  statusBg = "bg-amber-500";
+                  cardBorder = "border-amber-300 bg-amber-50/50";
+                  statusText = `🟡 MINOR GROUND FLOODING (${localFloodDepth.toFixed(2)}m) — NO INUNDATION INSIDE STRUCTURE`;
+                } else if (inundationAboveFFE > 0 && inundationAboveFFE < 0.5) {
+                  statusBg = "bg-orange-600";
+                  cardBorder = "border-orange-300 bg-orange-50/50";
+                  statusText = `🟠 MODERATE STRUCTURAL INUNDATION (${inundationAboveFFE.toFixed(2)}m ABOVE FLOOR) — MONITOR ALERT`;
+                } else if (inundationAboveFFE >= 0.5) {
+                  statusBg = "bg-red-600";
+                  cardBorder = "border-red-300 bg-red-50/50";
+                  statusText = `⚠️ CRITICAL INUNDATION ZONE (${inundationAboveFFE.toFixed(2)}m ABOVE FLOOR) — EVACUATE TO HIGHER GROUND`;
+                }
+
+                return (
+                  <div className={`border rounded p-3 shadow-sm animate-fade-in ${cardBorder}`}>
+                    <div className="flex items-center justify-between border-b border-slate-200 pb-2 mb-2">
+                      <div className="flex items-center gap-1.5">
+                        <Building className="w-4 h-4 text-slate-700" />
+                        <h3 className="text-xs font-bold text-slate-800">Building Hazard Inspector</h3>
+                      </div>
+                      <span className="text-[9px] font-mono bg-slate-200 text-slate-700 px-1.5 py-0.5 rounded font-bold">
+                        Parcel Level
                       </span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-500">Inundation Above Floor (FFE):</span>
-                      <span className="font-mono font-bold text-rose-800">
-                        {Math.max(0, ((returnPeriod === 5 ? 1.8 : returnPeriod === 25 ? 3.5 : returnPeriod === 50 ? 5.0 : 6.5) + tidalSurge - 0.3)).toFixed(2)} m
-                      </span>
-                    </div>
 
-                    <div className="mt-2 pt-2 border-t border-red-200/60">
-                      <div className="text-[10px] text-slate-500 font-medium mb-1">Evacuation & Hazard Status:</div>
-                      <div className="p-2 bg-red-600 text-white rounded text-center font-bold text-xs shadow-sm">
-                        ⚠️ CRITICAL INUNDATION ZONE — EVACUATE TO HIGHER GROUND
+                    <div className="space-y-2 text-xs">
+                      <div className="flex justify-between">
+                        <span className="text-slate-500">Structural Category:</span>
+                        <span className="font-bold text-slate-800">{structCategory}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-500">Terrain Ground Elev:</span>
+                        <span className="font-mono font-bold text-slate-800">{groundElev.toFixed(1)} m AMSL</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-500">Water Surface Level ({returnPeriod}Y + Surge):</span>
+                        <span className="font-mono font-bold text-sky-700">{baseWaterLevelAMSL.toFixed(2)} m AMSL</span>
+                      </div>
+                      <div className="flex justify-between border-t border-slate-200/60 pt-1.5">
+                        <span className="text-slate-600 font-semibold">Local Flood Depth (Above Ground):</span>
+                        <span className={`font-mono font-bold ${localFloodDepth > 0 ? 'text-amber-700' : 'text-emerald-700'}`}>
+                          {localFloodDepth.toFixed(2)} m
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-600 font-semibold">Inundation Above Floor (FFE step-up {ffeOffset}m):</span>
+                        <span className={`font-mono font-bold ${inundationAboveFFE > 0 ? 'text-rose-800' : 'text-emerald-700'}`}>
+                          {inundationAboveFFE.toFixed(2)} m
+                        </span>
+                      </div>
+
+                      <div className="mt-2 pt-2 border-t border-slate-200/60">
+                        <div className="text-[10px] text-slate-500 font-medium mb-1">Evacuation & Hazard Status:</div>
+                        <div className={`p-2 text-white rounded text-center font-bold text-xs shadow-sm ${statusBg}`}>
+                          {statusText}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              )}
+                );
+              })()}
 
               {/* 1. DEM Cross Section & Risk */}
               <div className="border border-slate-200 rounded p-3 bg-slate-50 shadow-sm">
