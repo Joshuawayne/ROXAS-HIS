@@ -397,6 +397,7 @@ function Dashboard({ role }) {
   const [selectedDrainage, setSelectedDrainage] = useState(null);
   const [selectedBuilding, setSelectedBuilding] = useState(null);
   const [tidalSurge, setTidalSurge] = useState(0.0); // 0.0m to 3.0m tidal surge offset
+  const [appliedStrategy, setAppliedStrategy] = useState(null);
   const [showParetoModal, setShowParetoModal] = useState(false);
   const [showMapAtlas, setShowMapAtlas] = useState(false);
   const [basemap, setBasemap] = useState('satellite');
@@ -475,7 +476,7 @@ function Dashboard({ role }) {
   useEffect(() => {
     if (crossSectionPts.length === 2) {
       const [p1, p2] = crossSectionPts;
-      fetch(`${API_URL}/api/cross-section?lon_a=${p1[0]}&lat_a=${p1[1]}&lon_b=${p2[0]}&lat_b=${p2[1]}&return_period=${returnPeriod}`)
+      fetch(`${API_URL}/api/cross-section?lon_a=${p1[0]}&lat_a=${p1[1]}&lon_b=${p2[0]}&lat_b=${p2[1]}&return_period=${returnPeriod}&tidal_surge=${tidalSurge}`)
         .then(res => res.json())
         .then(data => setElevationProfile(data.data))
         .catch(e => {
@@ -483,7 +484,7 @@ function Dashboard({ role }) {
           setElevationProfile(null);
         });
     }
-  }, [crossSectionPts, returnPeriod]);
+  }, [crossSectionPts, returnPeriod, tidalSurge]);
 
   // Auto-fetch encroachment data when building layer is turned on
   useEffect(() => {
@@ -1352,6 +1353,17 @@ function Dashboard({ role }) {
 
         {/* CENTER COLUMN: The Map */}
         <div className="flex-1 relative">
+          {appliedStrategy && (
+            <div className="absolute top-4 left-4 bg-emerald-900/90 backdrop-blur-md text-white px-4 py-2.5 rounded-lg shadow-xl border border-emerald-400 z-20 flex items-center gap-3 animate-fade-in text-xs font-bold">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+              <div>
+                <div className="text-[10px] uppercase text-emerald-300 tracking-wider">Active NSGA-II Strategy</div>
+                <div className="text-xs font-bold text-white">{appliedStrategy.name}: {appliedStrategy.desc}</div>
+                <div className="text-[10px] text-emerald-200 font-mono mt-0.5">{appliedStrategy.mitigation} Flood Volume Reduction • CAPEX {appliedStrategy.cost}</div>
+              </div>
+              <button onClick={() => setAppliedStrategy(null)} className="text-emerald-300 hover:text-white ml-3 font-bold text-sm">✕</button>
+            </div>
+          )}
           <DeckGL
             viewState={viewState}
             onViewStateChange={({ viewState }) => setViewState(viewState)}
@@ -2299,6 +2311,7 @@ function Dashboard({ role }) {
                           <button
                             onClick={() => {
                               setInterventionTypes(sol.types);
+                              setAppliedStrategy(sol);
                               setShowParetoModal(false);
                             }}
                             className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-[11px] font-bold uppercase tracking-wider transition-colors shadow-sm"
