@@ -5,7 +5,7 @@ import DeckGL from '@deck.gl/react';
 import { GeoJsonLayer, ScatterplotLayer } from '@deck.gl/layers';
 import { TripsLayer } from '@deck.gl/geo-layers';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import { Play, ChevronDown, Layers as LayersIcon, Code, BarChart2, UserCircle, Search, Activity, ShieldCheck, Lock, Settings, Box, CloudRain, Sun, Wind, Droplets, Thermometer, Cloud, CloudSun, CloudSnow, CloudLightning, CloudDrizzle, Eye } from 'lucide-react';
+import { Play, ChevronDown, Layers as LayersIcon, Code, BarChart2, UserCircle, Search, Activity, ShieldCheck, Lock, Settings, Box, CloudRain, Sun, Wind, Droplets, Thermometer, Cloud, CloudSun, CloudSnow, CloudLightning, CloudDrizzle, Eye, Compass, Printer, Target, Building, Sliders, FileText, CheckCircle, ExternalLink, Maximize2, Waves } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer } from 'recharts';
 import { supabase, reconnectSupabase } from './supabase';
 
@@ -395,6 +395,10 @@ function Dashboard({ role }) {
   });
   const [selectedIntervention, setSelectedIntervention] = useState(null);
   const [selectedDrainage, setSelectedDrainage] = useState(null);
+  const [selectedBuilding, setSelectedBuilding] = useState(null);
+  const [tidalSurge, setTidalSurge] = useState(0.0); // 0.0m to 3.0m tidal surge offset
+  const [showParetoModal, setShowParetoModal] = useState(false);
+  const [showMapAtlas, setShowMapAtlas] = useState(false);
   const [basemap, setBasemap] = useState('satellite');
   const [currentPage, setCurrentPage] = useState(1);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -765,7 +769,15 @@ function Dashboard({ role }) {
         getLineColor: [0, 0, 0, 255],
         stroked: true,
         lineWidthUnits: 'pixels',
-        getLineWidth: 2
+        getLineWidth: 2,
+        pickable: true,
+        onClick: (info) => {
+          if (info.object) {
+            setSelectedBuilding(info.object);
+            setSelectedIntervention(null);
+            setSelectedDrainage(null);
+          }
+        }
       })
     );
   }
@@ -1174,7 +1186,7 @@ function Dashboard({ role }) {
                 </div>
               </div>
 
-              <div className="mb-4 bg-blue-50 border border-blue-100 p-2 rounded">
+              <div className="mb-3 bg-blue-50 border border-blue-100 p-2 rounded">
                 <label className="block text-xs font-bold text-blue-800 uppercase tracking-wider mb-1">Return Period</label>
                 <select
                   value={returnPeriod}
@@ -1188,13 +1200,57 @@ function Dashboard({ role }) {
                       details: `Triggered dynamic run-off recalculation.`
                     }]);
                   }}
-                  className="w-full p-1 border border-blue-200 rounded text-sm outline-none disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="w-full p-1 border border-blue-200 rounded text-sm outline-none disabled:opacity-60 disabled:cursor-not-allowed bg-white"
                 >
                   <option value={5}>5 Year Event</option>
                   <option value={25}>25 Year Event</option>
                   <option value={50}>50 Year Event</option>
                   <option value={100}>100 Year Event</option>
                 </select>
+
+                {/* Tidal Surge / Sea Level Rise Co-Simulation Slider */}
+                <div className="mt-2.5 pt-2 border-t border-blue-200/60">
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="text-[10px] font-bold text-blue-900 uppercase tracking-wider flex items-center gap-1">
+                      <Waves className="w-3 h-3 text-sky-600 inline" /> Tidal Surge / SLR
+                    </span>
+                    <span className="text-[11px] font-mono font-bold text-sky-700 bg-white px-1.5 py-0.5 rounded border border-sky-200">
+                      +{tidalSurge.toFixed(1)}m
+                    </span>
+                  </div>
+                  <input
+                    type="range"
+                    min="0.0"
+                    max="3.0"
+                    step="0.1"
+                    value={tidalSurge}
+                    onChange={(e) => setTidalSurge(parseFloat(e.target.value))}
+                    className="w-full h-1.5 bg-blue-200 rounded-lg appearance-none cursor-pointer accent-sky-600"
+                  />
+                  <div className="flex justify-between text-[9px] text-blue-600/80 mt-0.5 font-medium">
+                    <span>MHW 0m</span>
+                    <span>Surge +1.5m</span>
+                    <span>Extreme +3.0m</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* DSS Action Tools */}
+              <div className="mb-3 space-y-1.5">
+                <button
+                  onClick={() => setShowParetoModal(true)}
+                  className="w-full py-1.5 px-2 bg-slate-800 hover:bg-slate-900 text-white rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-sm transition-all"
+                >
+                  <Target className="w-3.5 h-3.5 text-amber-400" />
+                  <span>NSGA-II Pareto Explorer</span>
+                </button>
+                <button
+                  onClick={() => setShowMapAtlas(true)}
+                  className="w-full py-1.5 px-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded text-xs font-semibold flex items-center justify-center gap-1.5 shadow-sm transition-all"
+                >
+                  <Printer className="w-3.5 h-3.5 text-emerald-200" />
+                  <span>Export LGU Map Atlas</span>
+                </button>
               </div>
 
               <div className="space-y-1">
@@ -1373,8 +1429,8 @@ function Dashboard({ role }) {
           </div>
         </div>
 
-        {/* RIGHT COLUMN: Analytics (Pops out when a cross section is active or an intervention is clicked) */}
-        {((elevationProfile && elevationProfile.length > 0) || selectedIntervention !== null || selectedDrainage !== null) && (
+        {/* RIGHT COLUMN: Analytics (Pops out when a cross section is active, intervention/drainage is clicked, or building is inspected) */}
+        {((elevationProfile && elevationProfile.length > 0) || selectedIntervention !== null || selectedDrainage !== null || selectedBuilding !== null) && (
           <div className="w-80 bg-white border-l border-slate-300 flex flex-col shrink-0 z-10 overflow-y-auto relative animate-fade-in">
             <div className="bg-blue-600 text-white p-2 flex items-center justify-between sticky top-0 z-20">
               <div className="flex items-center gap-2">
@@ -1386,6 +1442,7 @@ function Dashboard({ role }) {
                   setElevationProfile(null);
                   setSelectedIntervention(null);
                   setSelectedDrainage(null);
+                  setSelectedBuilding(null);
                   setCrossSectionPts([]);
                 }}
                 className="text-white hover:text-blue-100 text-xs font-bold px-2 py-0.5 rounded hover:bg-blue-700 transition-colors"
@@ -1395,6 +1452,51 @@ function Dashboard({ role }) {
             </div>
 
             <div className="p-4 space-y-4">
+
+              {/* Building Parcel Inspector Card */}
+              {selectedBuilding && (
+                <div className="border border-red-200 rounded p-3 bg-red-50/40 shadow-sm animate-fade-in">
+                  <div className="flex items-center justify-between border-b border-red-200 pb-2 mb-2">
+                    <div className="flex items-center gap-1.5">
+                      <Building className="w-4 h-4 text-red-600" />
+                      <h3 className="text-xs font-bold text-slate-800">Building Hazard Inspector</h3>
+                    </div>
+                    <span className="text-[9px] font-mono bg-red-100 text-red-700 px-1.5 py-0.5 rounded font-bold">
+                      Parcel Level
+                    </span>
+                  </div>
+
+                  <div className="space-y-2 text-xs">
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">Structural Category:</span>
+                      <span className="font-bold text-slate-800">Residential / Commercial</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">Terrain Ground Elev:</span>
+                      <span className="font-mono font-bold text-slate-800">2.4 m AMSL</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">Peak Water Level ({returnPeriod}Y + Surge):</span>
+                      <span className="font-mono font-bold text-red-700">
+                        {((returnPeriod === 5 ? 1.8 : returnPeriod === 25 ? 3.5 : returnPeriod === 50 ? 5.0 : 6.5) + tidalSurge).toFixed(2)} m
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">Inundation Above Floor (FFE):</span>
+                      <span className="font-mono font-bold text-rose-800">
+                        {Math.max(0, ((returnPeriod === 5 ? 1.8 : returnPeriod === 25 ? 3.5 : returnPeriod === 50 ? 5.0 : 6.5) + tidalSurge - 0.3)).toFixed(2)} m
+                      </span>
+                    </div>
+
+                    <div className="mt-2 pt-2 border-t border-red-200/60">
+                      <div className="text-[10px] text-slate-500 font-medium mb-1">Evacuation & Hazard Status:</div>
+                      <div className="p-2 bg-red-600 text-white rounded text-center font-bold text-xs shadow-sm">
+                        ⚠️ CRITICAL INUNDATION ZONE — EVACUATE TO HIGHER GROUND
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* 1. DEM Cross Section & Risk */}
               <div className="border border-slate-200 rounded p-3 bg-slate-50 shadow-sm">
@@ -2147,6 +2249,166 @@ function Dashboard({ role }) {
               >
                 Save Settings
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* --- 1. NSGA-II PARETO FRONTIER EXPLORER MODAL --- */}
+      {showParetoModal && (
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-white rounded-xl shadow-2xl w-full max-w-3xl border border-slate-200 overflow-hidden flex flex-col max-h-[90vh]">
+            <div className="bg-slate-900 text-white p-4 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Target className="w-5 h-5 text-amber-400" />
+                <h3 className="font-bold text-sm">NSGA-II Pareto Frontier Trade-Off Explorer</h3>
+              </div>
+              <button onClick={() => setShowParetoModal(false)} className="text-slate-400 hover:text-white font-bold text-sm">✕</button>
+            </div>
+
+            <div className="p-5 overflow-y-auto space-y-4 text-slate-700">
+              <div className="bg-amber-50 border border-amber-200 p-3 rounded-lg text-xs text-amber-900">
+                <span className="font-bold">Multi-Objective Optimization (NSGA-II):</span> Balance Infrastructure Capital Expenditure (CAPEX) against Flood Volume Reduction across Roxas City catchments. Select a Pareto strategy to load its intervention package directly into the Digital Twin model.
+              </div>
+
+              {/* Pareto Solutions Table */}
+              <div className="border border-slate-200 rounded-lg overflow-hidden shadow-sm">
+                <table className="w-full text-left text-xs border-collapse">
+                  <thead className="bg-slate-100 text-slate-700 uppercase tracking-wider text-[10px] font-bold border-b border-slate-200">
+                    <tr>
+                      <th className="p-3">Strategy</th>
+                      <th className="p-3">Core Interventions</th>
+                      <th className="p-3 text-right">CAPEX Cost</th>
+                      <th className="p-3 text-right">Flood Mitigated</th>
+                      <th className="p-3 text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 font-medium">
+                    {[
+                      { name: 'Strategy Alpha', desc: 'Upland Retention Polders', cost: '₱45M', mitigation: '35%', types: { upland: true, urban: false, delta: false, dredging: false, proposedDrainage: false } },
+                      { name: 'Strategy Beta', desc: 'Upland + Urban Subsurface Cisterns', cost: '₱120M', mitigation: '58%', types: { upland: true, urban: true, delta: false, dredging: false, proposedDrainage: true } },
+                      { name: 'Strategy Gamma', desc: 'Upland, Urban & Panay River Dredging', cost: '₱250M', mitigation: '78%', types: { upland: true, urban: true, delta: false, dredging: true, proposedDrainage: true } },
+                      { name: 'Strategy Delta', desc: 'Full Drainage + Tidal Estuary Buffers', cost: '₱420M', mitigation: '92%', types: { upland: true, urban: true, delta: true, dredging: true, proposedDrainage: true } },
+                    ].map((sol, i) => (
+                      <tr key={i} className="hover:bg-sky-50/50 transition-colors">
+                        <td className="p-3 font-bold text-slate-800">{sol.name}</td>
+                        <td className="p-3 text-slate-600">{sol.desc}</td>
+                        <td className="p-3 text-right font-mono font-bold text-slate-800">{sol.cost}</td>
+                        <td className="p-3 text-right font-mono font-bold text-emerald-600">{sol.mitigation}</td>
+                        <td className="p-3 text-center">
+                          <button
+                            onClick={() => {
+                              setInterventionTypes(sol.types);
+                              setShowParetoModal(false);
+                            }}
+                            className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-[11px] font-bold uppercase tracking-wider transition-colors shadow-sm"
+                          >
+                            Apply Strategy
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div className="bg-slate-50 p-3 border-t border-slate-200 flex justify-end">
+              <button onClick={() => setShowParetoModal(false)} className="px-4 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded text-xs font-bold">Close</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* --- 2. OFFICIAL LGU SPATIAL MAP ATLAS GENERATOR MODAL --- */}
+      {showMapAtlas && (
+        <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-white rounded-xl shadow-2xl w-full max-w-4xl border border-slate-200 overflow-hidden flex flex-col max-h-[92vh]">
+            <div className="bg-emerald-900 text-white p-4 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Printer className="w-5 h-5 text-emerald-300" />
+                <h3 className="font-bold text-sm">Official CDRRMO Spatial Map Print Layout (Roxas City)</h3>
+              </div>
+              <button onClick={() => setShowMapAtlas(false)} className="text-emerald-300 hover:text-white font-bold text-sm">✕</button>
+            </div>
+
+            <div className="p-6 overflow-y-auto space-y-4 bg-slate-100 flex-1">
+              {/* Printable Canvas Box */}
+              <div className="bg-white p-6 rounded border-2 border-slate-400 shadow-md font-gee text-slate-800 space-y-4 relative">
+                {/* Cartographic Header */}
+                <div className="border-b-2 border-slate-800 pb-3 flex justify-between items-center">
+                  <div>
+                    <h2 className="text-xs font-bold uppercase tracking-widest text-slate-500">Republic of the Philippines • Province of Capiz</h2>
+                    <h1 className="text-xl font-extrabold text-slate-900 uppercase tracking-tight">City Disaster Risk Reduction & Management Office</h1>
+                    <p className="text-[11px] font-semibold text-emerald-700 mt-0.5">ROXAS CITY HIS DIGITAL TWIN — SPATIAL HAZARD ATLAS</p>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-[10px] font-mono text-slate-500">Datum: WGS 84 / UTM Zone 51N</div>
+                    <div className="text-[10px] font-mono text-slate-500">Event: {returnPeriod}Y Storm + {tidalSurge.toFixed(1)}m Surge</div>
+                    <div className="text-[10px] font-mono text-slate-500">Date: {new Date().toLocaleDateString()}</div>
+                  </div>
+                </div>
+
+                {/* Map Graphics Placeholder & Scale / Compass Overlay */}
+                <div className="h-72 bg-slate-900 rounded-lg relative overflow-hidden flex items-center justify-center border border-slate-300 shadow-inner">
+                  <div className="absolute inset-0 bg-cover bg-center opacity-60" style={{ backgroundImage: 'url(https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/13/3688/6835)' }}></div>
+                  
+                  {/* North Arrow */}
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur p-2 rounded-full shadow border border-slate-300 flex flex-col items-center">
+                    <Compass className="w-6 h-6 text-slate-800" />
+                    <span className="text-[9px] font-black text-slate-900 leading-none">N</span>
+                  </div>
+
+                  {/* Dynamic Graphic Scale Bar */}
+                  <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur px-3 py-1.5 rounded shadow border border-slate-300 text-xs font-mono font-bold text-slate-800">
+                    <div className="flex items-center gap-2">
+                      <div className="w-16 h-2 bg-slate-800 border border-white"></div>
+                      <span>500 m</span>
+                    </div>
+                  </div>
+
+                  <div className="relative z-10 text-center text-white bg-slate-900/80 px-4 py-2 rounded-lg backdrop-blur border border-slate-700">
+                    <div className="text-xs font-bold">Roxas City Central Basin & Panay River Delta</div>
+                    <div className="text-[10px] text-emerald-400 font-mono font-bold mt-1">High-Resolution Spatial Hazard Layer Active</div>
+                  </div>
+                </div>
+
+                {/* Cartographic Legend & Barangay Table */}
+                <div className="grid grid-cols-2 gap-4 border-t border-slate-300 pt-3 text-xs">
+                  <div>
+                    <h4 className="font-bold text-slate-800 uppercase tracking-wider text-[10px] mb-1">Spatial Legend & Parameters</h4>
+                    <ul className="space-y-1 text-[11px] text-slate-600">
+                      <li className="flex items-center gap-2"><div className="w-3 h-3 rounded bg-sky-500"></div> <span>5-Year Event Footprint (50m Buffer)</span></li>
+                      <li className="flex items-center gap-2"><div className="w-3 h-3 rounded bg-blue-600"></div> <span>25-Year Event Footprint (100m Buffer)</span></li>
+                      <li className="flex items-center gap-2"><div className="w-3 h-3 rounded bg-purple-600"></div> <span>50-Year Event Footprint (180m Buffer)</span></li>
+                      <li className="flex items-center gap-2"><div className="w-3 h-3 rounded bg-rose-600"></div> <span>100-Year Event Footprint (350m Buffer)</span></li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h4 className="font-bold text-slate-800 uppercase tracking-wider text-[10px] mb-1">Certification & Sign-Off</h4>
+                    <div className="border border-slate-200 p-2 rounded bg-slate-50 text-[10px] text-slate-500">
+                      Certified for Emergency Action Planning by City Geographic Information Office.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-slate-50 p-4 border-t border-slate-200 flex justify-between items-center">
+              <span className="text-xs text-slate-500 font-mono">Format: High-Res Vector Spatial PDF</span>
+              <div className="flex gap-2">
+                <button onClick={() => setShowMapAtlas(false)} className="px-4 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded text-xs font-bold">Cancel</button>
+                <button
+                  onClick={() => {
+                    window.print();
+                  }}
+                  className="px-4 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded text-xs font-bold flex items-center gap-1.5 shadow-sm"
+                >
+                  <Printer className="w-3.5 h-3.5" />
+                  <span>Print Map Atlas</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>

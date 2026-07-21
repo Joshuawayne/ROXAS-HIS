@@ -276,7 +276,7 @@ async def predict_flood_pignn():
 # --- 7. GIS CROSS-SECTION & ROADS ---
 
 @app.get("/api/cross-section")
-async def get_cross_section(lon_a: float, lat_a: float, lon_b: float, lat_b: float, points: int = 30, return_period: int = 50):
+async def get_cross_section(lon_a: float, lat_a: float, lon_b: float, lat_b: float, points: int = 30, return_period: int = 50, tidal_surge: float = 0.0):
     global DRAINAGE_GDF, DEM_META_CACHE
     
     if DRAINAGE_GDF is None:
@@ -319,12 +319,13 @@ async def get_cross_section(lon_a: float, lat_a: float, lon_b: float, lat_b: flo
             intersecting = DRAINAGE_GDF[DRAINAGE_GDF.intersects(Point(lon, lat).buffer(0.0002))]
             drain_int = not intersecting.empty
                 
-        # Flood logic - Dynamic water level elevation per return period
+        # Flood logic - Dynamic water level elevation per return period + tidal surge
         water = None
         if return_period >= 100: max_f = 6.5
         elif return_period >= 50: max_f = 5.0
         elif return_period >= 25: max_f = 3.5
         else: max_f = 1.8
+        max_f += tidal_surge
         
         if elev < max_f and ("Built-up" in lulc or "Suburban" in lulc or "Mangrove" in lulc):
             water = max_f
